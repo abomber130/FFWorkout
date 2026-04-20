@@ -38,6 +38,7 @@
 
         .app { max-width: 520px; margin: 0 auto; padding: 16px 14px; }
 
+        /* Header & Navigation */
         .header {
             position: sticky; top: 0; z-index: 50;
             background: var(--timer-bg);
@@ -51,17 +52,18 @@
         h1 span { color: var(--accent); }
         .sub { color: var(--muted); font-size: 10px; margin: 0 0 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; }
 
-        .tabs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
+        .tabs { display: grid; grid-template-columns: repeat(5, 1fr); gap: 4px; }
         .tab-btn {
             display: flex; flex-direction: column; align-items: center; gap: 4px;
             text-align: center; border: 1px solid var(--border);
-            background: var(--card); color: var(--muted); padding: 10px 2px;
-            border-radius: 12px; font-weight: 700; font-size: 9px; cursor: pointer;
+            background: var(--card); color: var(--muted); padding: 8px 2px;
+            border-radius: 10px; font-weight: 700; font-size: 8px; cursor: pointer;
             text-transform: uppercase;
         }
-        .tab-btn i { width: 16px; height: 16px; }
+        .tab-btn i { width: 14px; height: 14px; }
         .tab-btn.active { border-color: var(--accent); color: var(--accent); background: rgba(125, 211, 252, 0.05); }
 
+        /* Version Switcher */
         .version-toggle {
             display: flex; background: var(--input); border-radius: 12px; padding: 4px; margin: 10px 0 20px; border: 1px solid var(--border);
         }
@@ -70,9 +72,11 @@
         }
         .v-btn.active { background: var(--accent); color: #000; }
 
+        /* Panel Management */
         .panel { display: none; }
         .panel.active { display: block; }
 
+        /* Block Headers */
         .block-header {
             display: flex; justify-content: space-between; align-items: center;
             margin: 24px 4px 10px; padding-bottom: 6px; border-bottom: 2px solid var(--border);
@@ -80,6 +84,7 @@
         .block-name { font-size: 13px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.15em; color: var(--accent); }
         .block-rounds { font-size: 9px; font-weight: 800; color: var(--muted); text-transform: uppercase; }
 
+        /* Cards */
         .card {
             background: var(--card); border: 1px solid var(--border);
             border-radius: 20px; padding: 18px; margin: 12px 0;
@@ -87,10 +92,12 @@
         }
         .eyebrow { color: var(--accent); font-size: 10px; text-transform: uppercase; letter-spacing: .15em; font-weight: 800; margin-bottom: 10px; }
 
+        /* Checkboxes */
         .warmup-item { display: flex; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--border); }
         .check-box { width: 22px; height: 22px; border: 2px solid var(--border); border-radius: 6px; flex-shrink: 0; cursor: pointer; display: flex; align-items: center; justify-content: center; }
         .check-box.checked { background: var(--accent); border-color: var(--accent); }
 
+        /* Exercise Design */
         .exercise-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px; }
         .exercise-title { font-size: 15px; font-weight: 800; text-transform: uppercase; font-style: italic; letter-spacing: 0.02em; }
         .exercise-meta { font-size: 10px; color: var(--muted); margin-top: 2px; font-weight: 700; text-transform: uppercase; }
@@ -100,6 +107,7 @@
         .cue-row { font-size: 11px; display: flex; gap: 8px; line-height: 1.4; }
         .cue-label { color: var(--accent); font-weight: 800; width: 42px; flex-shrink: 0; }
 
+        /* Input Styles */
         .log-row { display: flex; gap: 6px; margin-top: 14px; }
         input[type=number], select {
             width: 100%; background: var(--input); color: var(--text);
@@ -108,6 +116,7 @@
         }
         .add-btn { background: var(--accent); color: #000; border: none; border-radius: 10px; width: 52px; font-weight: 900; font-size: 18px; cursor: pointer; }
 
+        /* AI Elements */
         .ai-btn { 
             background: linear-gradient(135deg, #1e293b, #0f172a); 
             border: 1px solid var(--accent); 
@@ -122,10 +131,12 @@
             font-size: 12px; color: var(--text); line-height: 1.6; white-space: pre-wrap;
         }
 
+        /* Roulette Design */
         .roulette-box { min-height: 200px; display: flex; align-items: center; justify-content: left; padding: 25px; border: 2px dashed var(--border); border-radius: 24px; margin-bottom: 12px; background: rgba(0,0,0,0.15); }
         .roulette-text { font-size: 16px; font-weight: 700; color: var(--accent); line-height: 1.6; white-space: pre-wrap; }
         .big-btn { width: 100%; padding: 20px; background: var(--accent); color: #000; border: none; border-radius: 18px; font-weight: 800; font-size: 14px; text-transform: uppercase; letter-spacing: 0.1em; }
 
+        /* Timer UI */
         #timer-overlay {
             position: fixed; inset: 0; background: var(--timer-bg);
             z-index: 100; display: none; flex-direction: column;
@@ -134,6 +145,7 @@
         #timer-count { font-size: 140px; font-weight: 900; font-variant-numeric: tabular-nums; margin-bottom: 20px; color: var(--accent); }
         .timer-skip { background: var(--card); border: 1px solid var(--border); color: var(--text); padding: 12px 30px; border-radius: 99px; font-weight: 700; text-transform: uppercase; font-size: 11px; letter-spacing: 0.1em; }
 
+        /* Vault List */
         .history-item { border-bottom: 1px solid var(--border); padding: 10px 0; display: flex; justify-content: space-between; align-items: center; }
         .history-date { font-size: 9px; color: var(--muted); text-transform: uppercase; font-weight: 800; margin-bottom: 2px; }
         .history-val { font-weight: 800; color: var(--accent); font-size: 14px; }
@@ -141,6 +153,7 @@
         .end-note { text-align: center; padding: 40px 10px 20px; color: var(--muted); font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; border-top: 1px dashed var(--border); margin-top: 30px; }
         .end-note span { color: var(--accent); text-decoration: underline; cursor: pointer; }
 
+        /* Loading Dots Animation */
         .loading-dots:after {
           content: ' .';
           animation: dots 1s steps(5, end) infinite;
@@ -155,8 +168,9 @@
 </head>
 <body>
 
+<!-- Recovery Overlay -->
 <div id="timer-overlay">
-    <div style="font-size: 10px; font-weight: 800; color: var(--muted); text-transform: uppercase; letter-spacing: 0.4em;">Next Set Recovery</div>
+    <div style="font-size: 10px; font-weight: 800; color: var(--muted); text-transform: uppercase; letter-spacing: 0.4em;">Set Recovery</div>
     <div id="timer-count">60</div>
     <button class="timer-skip" onclick="closeTimer()">Skip Rest</button>
 </div>
@@ -164,15 +178,17 @@
 <div class="app">
     <div class="header">
         <h1>FF <span>Companion</span></h1>
-        <div class="sub">Simply Strong • Home Gym v8.2</div>
+        <div class="sub">Simply Strong • Home Gym v9.0</div>
         <div class="tabs">
             <div class="tab-btn active" onclick="showTab('upper', this)"><i data-lucide="dumbbell"></i>Upper</div>
             <div class="tab-btn" onclick="showTab('lower', this)"><i data-lucide="zap"></i>Lower</div>
-            <div class="tab-btn" onclick="showTab('roulette', this)"><i data-lucide="dices"></i>Finish</div>
+            <div class="tab-btn" onclick="showTab('mobility', this)"><i data-lucide="activity"></i>Move</div>
+            <div class="tab-btn" onclick="showTab('roulette', this)"><i data-lucide="dices"></i>Engine</div>
             <div class="tab-btn" onclick="showTab('vault', this)"><i data-lucide="history"></i>Vault</div>
         </div>
     </div>
 
+    <!-- UPPER BODY TAB -->
     <div id="upper" class="panel active">
         <div class="version-toggle">
             <div class="v-btn active" id="v-btn-uA" onclick="setVersion('upper', 'A')">V-A: Power</div>
@@ -181,6 +197,7 @@
         <div id="upper-content"></div>
     </div>
 
+    <!-- LOWER BODY TAB -->
     <div id="lower" class="panel">
         <div class="version-toggle">
             <div class="v-btn active" id="v-btn-lA" onclick="setVersion('lower', 'A')">V-A: Strength</div>
@@ -189,33 +206,44 @@
         <div id="lower-content"></div>
     </div>
 
+    <!-- MOBILITY & CARDIO TAB -->
+    <div id="mobility" class="panel">
+        <div class="version-toggle">
+            <div class="v-btn active" id="v-btn-mA" onclick="setVersion('mobility', 'A')">V-A: Flow & Fire</div>
+            <div class="v-btn" id="v-btn-mB" onclick="setVersion('mobility', 'B')">V-B: Stretch & Sweat</div>
+        </div>
+        <div id="mobility-content"></div>
+    </div>
+
+    <!-- CHALLENGE ENGINE (ROULETTE) TAB -->
     <div id="roulette" class="panel">
         <div class="card">
-            <div class="eyebrow">4-Minute Bodyweight Finishers</div>
+            <div class="eyebrow">4-Minute Challenge Engine</div>
             <div class="roulette-box" id="roulette-box">
-                <div class="roulette-text" style="color: var(--muted); opacity: 0.5;">Bulletized 4-minute drills. No equipment required.</div>
+                <div class="roulette-text" style="color: var(--muted); opacity: 0.5;">Select a challenge to finish your session.</div>
             </div>
-            <button class="big-btn" onclick="spinRoulette()">Generate Bullet Finisher</button>
+            <button class="big-btn" onclick="spinRoulette()">Quick Challenge</button>
             <div style="border-top: 1px solid var(--border); padding-top: 25px; margin-top: 15px;">
-                <label class="eyebrow">AI Dynamic Finisher</label>
+                <label class="eyebrow">AI Personalized Engine</label>
                 <select id="energy-level" style="margin-bottom: 12px;">
                     <option value="high">Energy: High 🔥</option>
                     <option value="medium" selected>Energy: Medium ⚡</option>
                     <option value="low">Energy: Low 🧘</option>
                 </select>
-                <button class="ai-btn" onclick="generateAiFinisher()"><i data-lucide="sparkles"></i> ✨ AI Bullet Generator</button>
+                <button class="ai-btn" onclick="generateAiFinisher()"><i data-lucide="sparkles"></i> ✨ AI Challenge Generator</button>
                 <div id="ai-finisher-result" class="ai-response" style="display: none;"></div>
             </div>
         </div>
     </div>
 
+    <!-- VAULT (RECORD) TAB -->
     <div id="vault" class="panel">
         <div class="card">
-            <div class="eyebrow">Training Logs & AI Forecast</div>
-            <button class="ai-btn" onclick="analyzePerformance()"><i data-lucide="trending-up"></i> ✨ Forecast Next Week's Load</button>
+            <div class="eyebrow">Performance History</div>
+            <button class="ai-btn" onclick="analyzePerformance()"><i data-lucide="trending-up"></i> ✨ Recommend Next Week</button>
             <div id="ai-analysis-result" class="ai-response" style="display: none; margin-bottom: 20px;"></div>
             <div id="history-list"></div>
-            <button class="timer-skip" style="width: 100%; margin-top: 30px; background: #991b1b; border: none; color: #fecaca;" onclick="clearHistory()">Wipe All History</button>
+            <button class="timer-skip" style="width: 100%; margin-top: 30px; background: #991b1b; border: none; color: #fecaca;" onclick="clearHistory()">Clear History</button>
         </div>
     </div>
 </div>
@@ -235,7 +263,7 @@
                 warmup: ["Arm Circles", "Wall Slides (12x)", "TRX Rows (15x)", "Bird-Dogs (8/side)"],
                 A: [{ name: 'A1. Incline DB Press', sets: '4x10', rest: 90, feel: 'Upper chest', cue: 'Shoulders into bench', watch: 'Too much arch' }, { name: 'A2. TRX Pull-up', sets: '4xMAX', rest: 90, feel: 'Vertical pull', cue: 'Chest to rings', watch: 'Kicking' }],
                 B: [{ name: 'B1. Arnold Press', sets: '3x12', rest: 60, feel: 'Shoulder integration', cue: 'Rotate as you push', watch: 'Locked elbows' }, { name: 'B2. Landmine Row', sets: '3x10', rest: 60, feel: 'Lat stretch', cue: 'Hinge back', watch: 'Rounding' }, { name: 'B3. DB Shrugs', sets: '3x15', rest: 45, feel: 'Traps', cue: 'Shoulders to ears', watch: 'Rolling' }],
-                E: [{ name: 'E1. Hammer Curls', sets: '2x12', rest: 30, feel: 'Forearms', cue: 'Thumbs up', watch: 'Swinging' }, { name: 'E2. DB Skullcrushers', sets: '2x12', rest: 30, feel: 'Triceps', cue: 'Lower past head', watch: 'Moving elbows' }, { name: 'E3. Front Raises', sets: '2x12', rest: 30, feel: 'Front delt', cue: 'Control descent', watch: 'Momentum' }, { name: 'E4. Dead Bug', sets: '2x10/side', rest: 30, feel: 'Deep core', cue: 'Back flat on floor', watch: 'Back arching' }]
+                E: [{ name: 'E1. Hammer Curls', sets: '2x12', rest: 30, feel: 'Forearms', cue: 'Thumbs up', watch: 'Swinging' }, { name: 'E2. Skullcrushers', sets: '2x12', rest: 30, feel: 'Triceps', cue: 'Lower past head', watch: 'Moving elbows' }, { name: 'E3. Front Raises', sets: '2x12', rest: 30, feel: 'Front delt', cue: 'Control descent', watch: 'Momentum' }, { name: 'E4. Dead Bug', sets: '2x10/side', rest: 30, feel: 'Deep core', cue: 'Back flat on floor', watch: 'Back arching' }]
             }
         },
         lower: {
@@ -251,6 +279,20 @@
                 B: [{ name: 'B1. Bulgarian Split Squat', sets: '3x10/side', rest: 60, feel: 'Quads/Glutes', cue: 'Lean forward', watch: 'Knee cave' }, { name: 'B2. Hamstring Bridge', sets: '3x15', rest: 60, feel: 'Hamstrings', cue: 'Tuck pelvis', watch: 'Lower back arch' }, { name: 'B3. Step Ups', sets: '3x10/side', rest: 60, feel: 'Glutes', cue: 'Lead heel drive', watch: 'Pushing with back foot' }],
                 E: [{ name: 'E1. Reverse Crunches', sets: '2x15', rest: 30, feel: 'Lower abs', cue: 'Curl hips off floor', watch: 'Swinging legs' }, { name: 'E2. Clamshells', sets: '2x15/side', rest: 30, feel: 'Glute med', cue: 'Hips stacked', watch: 'Rolling back' }, { name: 'E3. Calf Raises', sets: '2x20', rest: 30, feel: 'Calves', cue: 'Pause at top', watch: 'Bouncing' }, { name: 'E4. Russian Twists', sets: '2x20', rest: 30, feel: 'Obliques', cue: 'Rotate shoulders', watch: 'Arm-only movement' }]
             }
+        },
+        mobility: {
+            A: {
+                warmup: ["Neck Circles", "Shoulder Rolls", "Pelvic Tilts"],
+                A: [{ name: 'A1. World Greatest Stretch', sets: '4x5/side', rest: 30, feel: 'Total body opening', cue: 'Elbow to instep', watch: 'Rushing' }, { name: 'A2. Jump Squats', sets: '4x10', rest: 60, feel: 'Explosive legs', cue: 'Soft landing', watch: 'Knees in' }],
+                B: [{ name: 'B1. Cat-Cow', sets: '3x12', rest: 30, feel: 'Spine fluidity', cue: 'Sync with breath', watch: 'Forced range' }, { name: 'B2. Burpees', sets: '3x10', rest: 60, feel: 'Full body cardio', cue: 'Snap feet to hands', watch: 'Sagging back' }, { name: 'B3. 90/90 Hip Flow', sets: '3x8/side', rest: 30, feel: 'Inner/Outer hip', cue: 'Keep torso tall', watch: 'Slumping' }],
+                E: [{ name: 'E1. Mountain Climbers', sets: '2x45s', rest: 30, feel: 'Core/Cardio', cue: 'Drive knees fast', watch: 'Bouncing hips' }, { name: 'E2. Plank Jacks', sets: '2x20', rest: 30, feel: 'Core/Shoulders', cue: 'Stay flat like a board', watch: 'Butt in air' }, { name: 'E3. Cobra Stretch', sets: '2x30s', rest: 30, feel: 'Abdominal stretch', cue: 'Shoulders down', watch: 'Neck tension' }, { name: 'E4. Childs Pose', sets: '2x60s', rest: 0, feel: 'Lower back relief', cue: 'Deep breaths', watch: 'Holding breath' }]
+            },
+            B: {
+                warmup: ["Wrist Circles", "Hip Circles", "Ankle Rolls"],
+                A: [{ name: 'A1. Pigeon Stretch', sets: '4x45s/side', rest: 30, feel: 'Deep glute stretch', cue: 'Square hips to floor', watch: 'Pain in knee' }, { name: 'A2. Lateral Bounds', sets: '4x10/side', rest: 60, feel: 'Side power/cardio', cue: 'Stick the landing', watch: 'Instability' }],
+                B: [{ name: 'B1. Scorpion Stretch', sets: '3x8/side', rest: 30, feel: 'Low back/Hips', cue: 'Tap toe to hand', watch: 'Over-rotating' }, { name: 'B2. High Knees', sets: '3x45s', rest: 60, feel: 'Heart rate up', cue: 'Pump arms', watch: 'Leaning back' }, { name: 'B3. Downdog to Plank', sets: '3x10', rest: 30, feel: 'Shoulders/Hams', cue: 'Drive heels down', watch: 'Shoulder shrugging' }],
+                E: [{ name: 'E1. Skaters', sets: '2x45s', rest: 30, feel: 'Lateral cardio', cue: 'Swing arms for power', watch: 'Rounding back' }, { name: 'E2. Bear Crawl', sets: '2x30s', rest: 30, feel: 'Total core', cue: 'Knees 1 inch off floor', watch: 'High hips' }, { name: 'E3. Couch Stretch', sets: '2x45s/side', rest: 30, feel: 'Deep quad/hip', cue: 'Squeeze glute', watch: 'Low back arch' }, { name: 'E4. Happy Baby', sets: '2x60s', rest: 0, feel: 'Hip/Groin', cue: 'Pull knees to armpits', watch: 'Tension in face' }]
+            }
         }
     };
 
@@ -265,11 +307,13 @@
         "PUSH-PULL (4 MINS):\n• 10 Pushups\n• 10 TRX Rows (or DB Rows)\nNon-stop"
     ];
 
-    let currentVersions = { upper: 'A', lower: 'A' };
+    let currentVersions = { upper: 'A', lower: 'A', mobility: 'A' };
     let timerInterval = null;
 
     async function callGemini(prompt, systemPrompt) {
         const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+        
+        let lastError;
         for (let i = 0; i < 5; i++) {
             try {
                 const response = await fetch(url, { 
@@ -280,30 +324,52 @@
                         systemInstruction: { parts: [{ text: systemPrompt }] } 
                     }) 
                 });
+                
+                if (!response.ok) throw new Error(`Status ${response.status}`);
+                
                 const result = await response.json();
-                return result.candidates?.[0]?.content?.parts?.[0]?.text;
-            } catch (e) { await new Promise(res => setTimeout(res, Math.pow(2, i) * 1000)); }
+                const text = result.candidates?.[0]?.content?.parts?.[0]?.text;
+                if (!text) throw new Error("No text returned");
+                return text;
+            } catch (e) { 
+                lastError = e;
+                await new Promise(res => setTimeout(res, Math.pow(2, i) * 1000)); 
+            }
         }
-        return "Coaching unavailable.";
+        console.error("Gemini failed after retries:", lastError);
+        return null;
     }
 
     async function generateAiFinisher() {
         const energy = document.getElementById('energy-level').value;
         const resDiv = document.getElementById('ai-finisher-result');
-        resDiv.style.display = 'block'; resDiv.innerHTML = "Thinking<span class='loading-dots'></span>";
-        const prompt = `4-minute bodyweight finisher. Energy: ${energy}. Bullets only. Functional intensity.`;
-        const res = await callGemini(prompt, "Fitness coach. No fluff. 4 mins max.");
-        resDiv.innerHTML = `<strong>✨ AI BULLET FINISHER:</strong><br>${res}`;
+        resDiv.style.display = 'block'; resDiv.innerHTML = "Consulting Coach<span class='loading-dots'></span>";
+        
+        const prompt = `Create a 4-minute bodyweight challenge. Energy: ${energy}. Format: Simple bullet points. No equipment. No catchy names. Focus on intensity and flow.`;
+        const res = await callGemini(prompt, "Fitness coach. No fluff. Bullets only. 4 minutes max.");
+        
+        if (res) {
+            resDiv.innerHTML = `<strong>✨ AI CHALLENGE:</strong><br>${res}`;
+        } else {
+            resDiv.innerHTML = "<strong>⚠️ AI Connection Failed</strong><br>Using hardcoded engine...";
+            spinRoulette();
+        }
     }
 
     async function analyzePerformance() {
-        const logs = JSON.parse(localStorage.getItem('ff_logs_v8.2') || '[]');
+        const logs = JSON.parse(localStorage.getItem('ff_logs_v9.0') || '[]');
         const resDiv = document.getElementById('ai-analysis-result');
-        if (logs.length < 1) { resDiv.style.display = 'block'; resDiv.innerText = "Log a set first."; return; }
-        resDiv.style.display = 'block'; resDiv.innerHTML = "Analyzing<span class='loading-dots'></span>";
-        const prompt = `Logs: ${JSON.stringify(logs.slice(0,10))}. Recommend next week's weights (lbs) for main lifts.`;
+        if (logs.length < 1) { resDiv.style.display = 'block'; resDiv.innerText = "Log some work first."; return; }
+        resDiv.style.display = 'block'; resDiv.innerHTML = "Analyzing History<span class='loading-dots'></span>";
+        
+        const prompt = `Logs: ${JSON.stringify(logs.slice(0,12))}. Suggest specific Lbs/Reps for main lifts next week based on these numbers. Use progressive overload logic. Be concise.`;
         const res = await callGemini(prompt, "Expert Strength Coach. Forecast progression.");
-        resDiv.innerHTML = `<strong>✨ NEXT WEEK'S TARGETS:</strong><br>${res}`;
+        
+        if (res) {
+            resDiv.innerHTML = `<strong>✨ PERFORMANCE FORECAST:</strong><br>${res}`;
+        } else {
+            resDiv.innerHTML = "<strong>⚠️ Analysis Unavailable</strong><br>Keep increasing load by 2.5-5lbs manually!";
+        }
     }
 
     function renderWorkout(part, version) {
@@ -314,7 +380,7 @@
             <div class="block-header"><div class="block-name">A Block</div><div class="block-rounds">4 Rounds</div></div>${d.A.map(ex => renderEx(ex)).join('')}
             <div class="block-header"><div class="block-name">B Block</div><div class="block-rounds">3 Rounds</div></div>${d.B.map(ex => renderEx(ex)).join('')}
             <div class="block-header"><div class="block-name">E Block</div><div class="block-rounds">2 Rounds</div></div>${d.E.map(ex => renderEx(ex)).join('')}
-            <div class="end-note">Done? Go to <span onclick="showTab('roulette', document.querySelectorAll('.tab-btn')[2])">Roulette</span>.</div>
+            <div class="end-note">Session Complete. Head to the <span onclick="showTab('roulette', document.querySelectorAll('.tab-btn')[3])">Engine</span>.</div>
         `;
         lucide.createIcons();
     }
@@ -329,8 +395,10 @@
 
     function setVersion(p, v) { 
         currentVersions[p] = v;
-        document.getElementById(`v-btn-${p === 'upper' ? 'uA' : 'lA'}`).classList.toggle('active', v === 'A');
-        document.getElementById(`v-btn-${p === 'upper' ? 'uB' : 'lB'}`).classList.toggle('active', v === 'B');
+        const pBtnA = document.getElementById(`v-btn-${p.charAt(0)}A`);
+        const pBtnB = document.getElementById(`v-btn-${p.charAt(0)}B`);
+        if(pBtnA) pBtnA.classList.toggle('active', v === 'A');
+        if(pBtnB) pBtnB.classList.toggle('active', v === 'B');
         renderWorkout(p, v); 
     }
 
@@ -356,26 +424,26 @@
         const row = btn.parentElement, w = row.querySelector('.w-input').value, r = row.querySelector('.r-input').value;
         if(!w || !r) return;
         const entry = { name, w, r, date: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) };
-        let logs = JSON.parse(localStorage.getItem('ff_logs_v8.2') || '[]'); logs.unshift(entry);
-        localStorage.setItem('ff_logs_v8.2', JSON.stringify(logs));
+        let logs = JSON.parse(localStorage.getItem('ff_logs_v9.0') || '[]'); logs.unshift(entry);
+        localStorage.setItem('ff_logs_v9.0', JSON.stringify(logs));
         btn.innerHTML = '✓'; btn.style.background = 'var(--good)';
         setTimeout(() => { btn.innerHTML = '+'; btn.style.background = 'var(--accent)'; row.querySelector('.w-input').value = ''; row.querySelector('.r-input').value = ''; }, 1200);
     }
 
     function renderHistory() {
-        const logs = JSON.parse(localStorage.getItem('ff_logs_v8.2') || '[]');
+        const logs = JSON.parse(localStorage.getItem('ff_logs_v9.0') || '[]');
         const container = document.getElementById('history-list');
         if(logs.length === 0) { container.innerHTML = '<div style="text-align:center; padding: 40px; color: var(--muted);">Vault is empty.</div>'; return; }
         container.innerHTML = logs.map(l => `<div class="history-item"><div><div class="history-date">${l.date}</div><div style="font-weight:700;">${l.name}</div></div><div class="history-val">${l.w} lbs × ${l.r}</div></div>`).join('');
     }
 
-    function clearHistory() { if(confirm("Clear history?")) { localStorage.removeItem('ff_logs_v8.2'); renderHistory(); } }
+    function clearHistory() { if(confirm("Clear history?")) { localStorage.removeItem('ff_logs_v9.0'); renderHistory(); } }
 
     function spinRoulette() {
         document.getElementById('roulette-box').innerHTML = `<div class="roulette-text">${hardcodedFinishers[Math.floor(Math.random() * hardcodedFinishers.length)]}</div>`;
     }
 
-    window.onload = () => { renderWorkout('upper', 'A'); renderWorkout('lower', 'A'); lucide.createIcons(); };
+    window.onload = () => { renderWorkout('upper', 'A'); renderWorkout('lower', 'A'); renderWorkout('mobility', 'A'); lucide.createIcons(); };
 </script>
 
 </body>
