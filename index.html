@@ -285,7 +285,7 @@
 
 <script>
     // PASTE YOUR GOOGLE AI STUDIO API KEY BELOW
-    const apiKey = "AIzaSyCdn-VpZ4O50qobz0BIvanbLNHOR3UsnsA"; 
+    const apiKey = ""; 
 
     const library = {
         upper: {
@@ -404,9 +404,9 @@
 
     let appState = { type: 'upper', version: 'A', timer: null };
 
-    // --- STREAMLINED ONE-SHOT I LOGIC ---
+    // --- STREAMLINED ONE-SHOT GEMINI LOGIC ---
     async function askCoach(prompt, systemText) {
-        // Using Gemini 1.5 Flash for maximum stability and compatibility with all free-tier public keys
+        // DEFINITIVE FIX: Using gemini-2.0-flash and strictly ONE request (no hidden retries)
         const model = apiKey ? "gemini-2.0-flash" : "gemini-2.5-flash-preview-09-2025";
         const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
         
@@ -426,6 +426,10 @@
                 body: JSON.stringify(payload)
             });
             
+            if (response.status === 429) {
+                return JSON.stringify({error: "Free Plan Quota Reached. Please wait 60 seconds and try again."});
+            }
+            
             if (!response.ok) {
                 const errData = await response.json();
                 return JSON.stringify({error: `API Error ${response.status}: ${errData.error?.message || 'Check your API Key.'}`});
@@ -436,7 +440,7 @@
             return text.replace(/```json/gi, '').replace(/```/g, '').trim();
             
         } catch(e) { 
-            return JSON.stringify({error: `Network Error: Cache Issue. You must delete the app from your iPhone Home Screen and re-add it.`});
+            return JSON.stringify({error: `Network Error: Please check your connection.`});
         }
     }
 
