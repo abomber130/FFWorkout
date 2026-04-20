@@ -230,7 +230,7 @@
     <!-- QUICK HITS PANEL -->
     <div id="panel-hits" class="panel">
         <h2>Quick Hits</h2>
-        <p class="welcome-sub">Focused intensity for busy days.</p>
+        <p class="welcome-sub">Focused 5-minute intensity sessions.</p>
 
         <div class="train-toggle">
             <div class="t-btn active" id="hit-tab-core" onclick="switchHitTab('core')">Core</div>
@@ -239,14 +239,14 @@
 
         <div id="hit-content-core">
             <button class="ai-action-btn" onclick="runAi('core')">
-                <i data-lucide="shield"></i> Generate AI Core Burner
+                <i data-lucide="shield"></i> Generate 5-Min Core Session
             </button>
             <div id="res-core" style="margin-top:15px;"></div>
         </div>
 
         <div id="hit-content-finish" style="display:none">
             <button class="ai-action-btn" onclick="runAi('finish')">
-                <i data-lucide="swords"></i> Spawn Session Challenge
+                <i data-lucide="swords"></i> Spawn 5-Min Finisher
             </button>
             <div id="res-finish" style="margin-top:15px;"></div>
         </div>
@@ -360,7 +360,7 @@
             B: { label: "Unilateral Stability", warmup: ["Leg Swings", "Cossack Squats", "Lunges", "Hip Switches"], rounds: {
                 primary: [
                     { name: 'Conventional Deadlift', sets: '4x5-8', rest: 150, action: 'Pull barbell from floor to hip with a neutral spine.', feel: 'Hams, Glutes, Low Back', cue: 'Push floor away', watch: 'Back rounding' },
-                    { name: 'Broad Jumps', sets: '4x3', rest: 60, feel: 'Horizontal power', cue: 'Swing arms hard', watch: 'Hard landing' }
+                    { name: 'Broad Jumps', sets: '4x3', rest: 60, action: 'Explosive forward leap focusing on distance.', feel: 'Horizontal power', cue: 'Swing arms hard', watch: 'Hard landing' }
                 ],
                 structure: [
                     { name: 'Bulgarian Split Squat', sets: '3x10/side', rest: 60, feel: 'Quads and glute med', cue: 'Lean forward slightly', watch: 'Knee tracking inward' },
@@ -374,7 +374,7 @@
                     { name: 'Russian Twist', sets: '2x20', rest: 30, feel: 'Obliques', cue: 'Move shoulders', watch: 'Arm only movement' }
                 ]
             } },
-            C: { label: "Bodyweight Flow", warmup: ["Leg Swings", "90/90 Switches", "Cat-Cow", "Bird-Dog"], rounds: {
+            C: { label: "Bodyweight Master", warmup: ["Leg Swings", "90/90 Switches", "Cat-Cow", "Bird-Dog"], rounds: {
                 primary: [
                     { name: 'Pistol Squat (Assisted)', sets: '4x8/side', rest: 60, feel: 'Single leg power', cue: 'Sit back deep', watch: 'Knee collapsing' },
                     { name: 'Glute Bridges', sets: '4x20', rest: 60, feel: 'Glutes', cue: 'Hips to sky', watch: 'Rushing' }
@@ -393,16 +393,16 @@
             } }
         },
         move: {
-            A: { label: "Athletic Flow", prompt: "Create a 45 min Flow session focusing on Mobility and Low Impact Cardio. USE ONLY HOME GYM EQUIPMENT (TRX, DB, Barbell, Bench). NO SPRINTS. 3 Rounds per block. Standard Round 1/2/3 structure. EVERY EXERCISE MUST HAVE action, feel, cue, watch fields." },
-            B: { label: "High Intensity", prompt: "Create a 45 min HIIT session focusing on Plyo and High Volume reps. USE ONLY HOME GYM EQUIPMENT. NO SPRINTS. 3 Rounds per block. Standard Round 1/2/3 structure. EVERY EXERCISE MUST HAVE action, feel, cue, watch fields." },
-            C: { label: "Sore & Stiff (Recovery)", prompt: "Create a 40 min session focusing on deep mobility and core activation. NO EQUIPMENT. 3 Rounds per block. Standard Round 1/2/3 structure. EVERY EXERCISE MUST HAVE action, feel, cue, watch fields." }
+            A: { label: "Athletic Flow", prompt: "Create a 45 min Flow session focusing on Mobility and Low Impact Cardio. USE ONLY HOME GYM EQUIPMENT (TRX, DB, Barbell, Bench). NO SPRINTS. 3 Rounds per block. Standard Round 1/2/3 structure. EVERY EXERCISE MUST HAVE name, sets, action, feel, cue, watch fields." },
+            B: { label: "High Intensity", prompt: "Create a 45 min HIIT session focusing on Plyo and High Volume reps. USE ONLY HOME GYM EQUIPMENT. NO SPRINTS. 3 Rounds per block. Standard Round 1/2/3 structure. EVERY EXERCISE MUST HAVE name, sets, action, feel, cue, watch fields." },
+            C: { label: "Sore & Stiff (Recovery)", prompt: "Create a 40 min session focusing on deep mobility and core activation. NO EQUIPMENT. 3 Rounds per block. Standard Round 1/2/3 structure. EVERY EXERCISE MUST HAVE name, sets, action, feel, cue, watch fields." }
         }
     };
 
     let appState = { type: 'upper', version: 'A', timer: null };
 
     // --- Gemini Logic with Mandatory Retries & Backoff ---
-    async function askCoach(prompt, system = "You are an expert fitness coach. Your outputs must be valid JSON matching the app's structure: {warmup:[], primary:[], structure:[], integration:[]}. Every exercise MUST include 'name', 'sets', 'action', 'feel', 'cue', and 'watch' fields. DO NOT return markdown blocks, just raw JSON string.") {
+    async function askCoach(prompt, system = "You are an expert fitness coach. Your outputs must be valid JSON. Every exercise MUST include 'name', 'sets', 'action' (one sentence description), 'feel', 'cue', and 'watch' fields. Only return the JSON, no other text.") {
         const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
         const delays = [1000, 2000, 4000, 8000, 16000];
         
@@ -413,7 +413,8 @@
                     headers: {'Content-Type': 'application/json'}, 
                     body: JSON.stringify({ 
                         contents: [{parts: [{text: prompt}]}], 
-                        systemInstruction: {parts: [{text: system}]} 
+                        systemInstruction: {parts: [{text: system}]},
+                        generationConfig: { responseMimeType: "application/json" }
                     }) 
                 });
                 
@@ -421,7 +422,7 @@
                 
                 const json = await response.json();
                 const text = json.candidates?.[0]?.content?.parts?.[0]?.text;
-                if(text) return text.replace(/```json|```/g, "").trim();
+                if(text) return text.trim();
             } catch(e) { 
                 if (i === 5) break;
                 await new Promise(res => setTimeout(res, delays[i])); 
@@ -436,29 +437,31 @@
         target.innerHTML = `<div class="exercise-card" style="text-align:center">Consulting Coach<span class='loading'></span></div>`;
         
         let prompt = "";
-        let sys = "Return a JSON object with: {warmup:[4 items], primary:[2 items], structure:[2 items], integration:[2 items]}. Every exercise needs 'name', 'sets', 'action', 'feel', 'cue', 'watch'.";
+        let sys = "Return a JSON array of exercises: [{name, sets, action, feel, cue, watch}]. Every exercise needs these fields.";
         
-        if(mode === 'core') prompt = "Create a 5-minute core burner flow using the Round 1/2/3 structure. 3 Rounds each.";
-        if(mode === 'finish') prompt = "Create a 4-minute high intensity finisher challenge using the Round 1/2/3 structure. 3 Rounds each.";
-        if(mode === 'vault') {
-            const logs = JSON.parse(localStorage.getItem('ff_logs_v16') || '[]');
+        if(mode === 'core') {
+            prompt = "Create a 5-minute core burner workout. Flat list of exercises. No rounds, no warmups. Total time 5 mins.";
+        } else if(mode === 'finish') {
+            prompt = "Create a 5-minute high intensity finisher challenge. Flat list of exercises. No rounds, no warmups. Total time 5 mins.";
+        } else if(mode === 'vault') {
+            const logs = JSON.parse(localStorage.getItem('ff_logs_v17') || '[]');
             if(logs.length < 1) { target.innerText = "Log a workout first."; return; }
-            sys = "Expert Strength Coach. Give specific load targets.";
-            prompt = `Analyze these logs and predict next week's targets: ${JSON.stringify(logs.slice(0,10))}. Return text.`;
+            sys = "Expert Strength Coach. Give specific load targets based on performance trends.";
+            prompt = `Analyze these logs and predict next week's targets: ${JSON.stringify(logs.slice(0,10))}. Return text recommendations.`;
         }
 
         try {
             const res = await askCoach(prompt, sys);
             if(res && mode !== 'vault') {
                 const data = JSON.parse(res);
-                renderJsonWorkout(data, target, 3); 
+                renderSimpleList(data, target); 
             } else if (res) {
                 target.innerHTML = `<div style="background:rgba(255,255,255,0.05); padding:15px; border-radius:12px;">${res.replace(/\n/g, '<br>')}</div>`;
             } else {
-                target.innerHTML = `<div class="exercise-card" style="text-align:center; color: #ff6b6b;">Coach is unavailable. Check your connection and try again.</div>`;
+                target.innerHTML = `<div class="exercise-card" style="text-align:center; color: #ff6b6b;">Coach timed out. Try again.</div>`;
             }
         } catch (e) {
-            target.innerHTML = `<div class="exercise-card" style="text-align:center; color: #ff6b6b;">Failed to load session.</div>`;
+            target.innerHTML = `<div class="exercise-card" style="text-align:center; color: #ff6b6b;">Failed to parse coach response.</div>`;
         }
     }
 
@@ -510,11 +513,11 @@
         if(appState.type === 'move') {
             area.innerHTML = "<div class='exercise-card' style='text-align:center'>Architecting Path<span class='loading'></span></div>";
             try {
-                const res = await askCoach(data.prompt);
+                const res = await askCoach(data.prompt, "Expert fitness coach. Return a JSON object: {warmup:[4 items], primary:[2 items], structure:[2 items], integration:[2 items]}. Exercises need action, feel, cue, watch.");
                 if(res) {
                     renderJsonWorkout(JSON.parse(res), area, 3); 
                 } else {
-                    area.innerHTML = "<div class='exercise-card' style='text-align:center; color: #ff6b6b;'>Coach is currently offline.</div>";
+                    area.innerHTML = "<div class='exercise-card' style='text-align:center; color: #ff6b6b;'>Coach is unavailable.</div>";
                 }
             } catch (e) {
                 area.innerHTML = "<div class='exercise-card' style='text-align:center; color: #ff6b6b;'>Error loading path.</div>";
@@ -547,18 +550,27 @@
         lucide.createIcons();
     }
 
+    function renderSimpleList(exercises, container) {
+        const list = Array.isArray(exercises) ? exercises : (exercises.exercises || []);
+        container.innerHTML = `
+            <div class="section-header"><div class="section-name">5 Minute Burner</div><div class="section-rounds">No Rounds</div></div>
+            ${list.map(ex => renderExCard(ex)).join('')}
+        `;
+        lucide.createIcons();
+    }
+
     function renderExCard(ex) {
         const name = typeof ex === 'string' ? ex : ex.name;
-        const sets = ex.sets || "Suggested";
-        const action = ex.action || "Perform the movement with focused control and intensity.";
-        const feel = ex.feel || "Targeted muscle tension.";
-        const cue = ex.cue || "Stay braced and maintain posture.";
-        const watch = ex.watch || "Maintain perfect form.";
+        const sets = ex.sets || ex.duration || "Suggested";
+        const action = ex.action || "Perform movement with control.";
+        const feel = ex.feel || "Target tension.";
+        const cue = ex.cue || "Brace and maintain form.";
+        const watch = ex.watch || "Maintain perfect alignment.";
 
         return `
             <div class="exercise-card">
                 <div class="exercise-title"><div>${name}</div><div class="check-box" onclick="toggleCheck(this)"></div></div>
-                <div class="exercise-meta">${sets} • <span class="rest-badge" onclick="startTimer(60)">60s Rest</span></div>
+                <div class="exercise-meta">${sets} • <span class="rest-badge" onclick="startTimer(60)">Rest</span></div>
                 <div class="action-desc">${action}</div>
                 <div class="protocol-grid">
                     <div class="p-row"><span class="p-label">FEEL:</span><span class="p-val">${feel}</span></div>
@@ -610,14 +622,14 @@
         const row = btn.parentElement, w = row.querySelector('.w-in').value, r = row.querySelector('.r-in').value;
         if(!w || !r) return;
         const entry = { name, w, r, date: new Date().toLocaleDateString('en-US', {month:'short', day:'numeric'}), ts: Date.now() };
-        let logs = JSON.parse(localStorage.getItem('ff_logs_v16') || '[]'); logs.unshift(entry);
-        localStorage.setItem('ff_logs_v16', JSON.stringify(logs));
+        let logs = JSON.parse(localStorage.getItem('ff_logs_v17') || '[]'); logs.unshift(entry);
+        localStorage.setItem('ff_logs_v17', JSON.stringify(logs));
         btn.innerHTML = '✓'; btn.style.background = 'var(--good)';
         setTimeout(() => { btn.innerHTML = '+'; btn.style.background = 'var(--accent)'; row.querySelector('.w-in').value=''; row.querySelector('.r-in').value=''; }, 1500);
     }
 
     function renderHome() {
-        const logs = JSON.parse(localStorage.getItem('ff_logs_v16') || '[]');
+        const logs = JSON.parse(localStorage.getItem('ff_logs_v17') || '[]');
         const list = document.getElementById('home-weekly-list');
         const empty = document.getElementById('home-empty-msg');
         if(logs.length < 1) { list.innerHTML = ''; empty.style.display = 'block'; return; }
@@ -633,13 +645,13 @@
     }
 
     function renderVault() {
-        const logs = JSON.parse(localStorage.getItem('ff_logs_v16') || '[]');
+        const logs = JSON.parse(localStorage.getItem('ff_logs_v17') || '[]');
         const container = document.getElementById('vault-list');
         if(logs.length < 1) { container.innerHTML = '<p style="text-align:center; padding:40px; color:var(--muted)">Vault Empty.</p>'; return; }
         container.innerHTML = logs.slice(0, 40).map(l => `<div class="summary-item"><div><div style="color:var(--muted); font-size:10px;">${l.date}</div><div style="font-weight:700">${l.name}</div></div><div style="font-weight:900; color:var(--accent)">${l.w} x ${l.r}</div></div>`).join('');
     }
 
-    function clearAllData() { if(confirm("Wipe history?")) { localStorage.removeItem('ff_logs_v16'); renderVault(); renderHome(); } }
+    function clearAllData() { if(confirm("Wipe history?")) { localStorage.removeItem('ff_logs_v17'); renderVault(); renderHome(); } }
 
     window.onload = () => {
         lucide.createIcons();
