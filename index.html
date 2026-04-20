@@ -404,10 +404,10 @@
 
     let appState = { type: 'upper', version: 'A', timer: null };
 
-    // --- STREAMLINED ONE-SHOT GEMINI LOGIC ---
+    // --- STREAMLINED ONE-SHOT I LOGIC ---
     async function askCoach(prompt, systemText) {
         // Using Gemini 1.5 Flash for maximum stability and compatibility with all free-tier public keys
-        const model = apiKey ? "gemini-1.5-flash" : "gemini-2.5-flash-preview-09-2025";
+        const model = apiKey ? "gemini-2.0-flash" : "gemini-2.5-flash-preview-09-2025";
         const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
         
         const payload = { 
