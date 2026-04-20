@@ -42,14 +42,14 @@
         .header {
             position: sticky; top: 0; z-index: 50;
             background: rgba(10, 11, 13, 0.95);
-            padding: 16px 0;
+            padding: 12px 0;
             backdrop-filter: blur(12px);
             border-bottom: 1px solid var(--border);
             padding-top: env(safe-area-inset-top);
         }
         .header-brand { display: flex; align-items: center; gap: 10px; }
-        .logo-img { height: 32px; width: auto; border-radius: 4px; }
-        .brand-name { font-size: 16px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.05em; }
+        .logo-img { height: 28px; width: auto; border-radius: 4px; }
+        .brand-name { font-size: 14px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.05em; }
         .brand-name span { color: var(--brand-red); }
 
         /* Bottom Nav */
@@ -64,98 +64,100 @@
         }
         .nav-item {
             display: flex; flex-direction: column; align-items: center; justify-content: center;
-            padding: 12px 0; color: var(--muted); cursor: pointer; transition: 0.2s;
+            padding: 10px 0; color: var(--muted); cursor: pointer; transition: 0.2s;
         }
-        .nav-item i { width: 20px; height: 20px; margin-bottom: 4px; }
-        .nav-item span { font-size: 9px; font-weight: 700; text-transform: uppercase; }
+        .nav-item i { width: 18px; height: 18px; margin-bottom: 4px; }
+        .nav-item span { font-size: 8.5px; font-weight: 700; text-transform: uppercase; }
         .nav-item.active { color: var(--accent); }
 
         /* Panels */
-        .panel { display: none; padding-top: 20px; animation: fadeIn 0.2s ease-out; }
+        .panel { display: none; padding-top: 16px; animation: fadeIn 0.2s ease-out; }
         .panel.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        h2 { font-size: 24px; font-weight: 900; margin: 0 0 4px; letter-spacing: -0.02em; }
-        .welcome-sub { color: var(--muted); font-size: 14px; margin-bottom: 20px; font-weight: 500; }
+        h2 { font-size: 22px; font-weight: 900; margin: 0 0 4px; letter-spacing: -0.02em; }
+        .welcome-sub { color: var(--muted); font-size: 13px; margin-bottom: 16px; font-weight: 500; }
 
         .card {
             background: var(--card); border: 1px solid var(--border);
-            border-radius: 20px; padding: 20px; margin-bottom: 16px;
+            border-radius: 20px; padding: 18px; margin-bottom: 14px;
             box-shadow: 0 4px 20px rgba(0,0,0,0.3);
         }
-        .eyebrow { color: var(--accent); font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 12px; }
+        .eyebrow { color: var(--accent); font-size: 9px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 10px; }
 
-        .summary-item { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid var(--border); font-size: 13px; }
+        .summary-item { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid var(--border); font-size: 12px; }
         .summary-item:last-child { border-bottom: none; }
 
-        .launch-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 16px; }
+        .launch-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 14px; }
         .launch-btn {
             background: var(--card); border: 1px solid var(--border);
-            border-radius: 18px; padding: 14px; display: flex; flex-direction: column;
-            gap: 10px; cursor: pointer; transition: 0.2s;
+            border-radius: 16px; padding: 12px; display: flex; flex-direction: column;
+            gap: 8px; cursor: pointer; transition: 0.2s;
         }
-        .launch-btn i { color: var(--accent); width: 22px; height: 22px; }
-        .launch-btn span { font-size: 11px; font-weight: 800; text-transform: uppercase; }
+        .launch-btn i { color: var(--accent); width: 20px; height: 20px; }
+        .launch-btn span { font-size: 10px; font-weight: 800; text-transform: uppercase; }
 
+        /* Train Toggle */
         .train-toggle {
-            display: flex; background: var(--input); border-radius: 14px; padding: 4px; margin-bottom: 16px; border: 1px solid var(--border);
+            display: flex; background: var(--input); border-radius: 12px; padding: 3px; margin-bottom: 12px; border: 1px solid var(--border);
         }
         .t-btn {
-            flex: 1; text-align: center; padding: 12px; font-size: 10px; font-weight: 900; text-transform: uppercase; color: var(--muted); cursor: pointer; border-radius: 10px;
+            flex: 1; text-align: center; padding: 8px; font-size: 9px; font-weight: 900; text-transform: uppercase; color: var(--muted); cursor: pointer; border-radius: 9px;
         }
         .t-btn.active { background: var(--accent); color: #000; }
 
-        .version-row { display: flex; gap: 8px; margin-bottom: 16px; overflow-x: auto; padding-bottom: 4px; }
+        .version-row { display: flex; gap: 6px; margin-bottom: 14px; overflow-x: auto; padding-bottom: 4px; -ms-overflow-style: none; scrollbar-width: none; }
+        .version-row::-webkit-scrollbar { display: none; }
         .v-pill {
-            white-space: nowrap; padding: 10px 16px; border-radius: 99px; background: var(--card); border: 1px solid var(--border);
-            font-size: 10px; font-weight: 800; text-transform: uppercase; color: var(--muted); cursor: pointer;
+            white-space: nowrap; padding: 8px 12px; border-radius: 99px; background: var(--card); border: 1px solid var(--border);
+            font-size: 9px; font-weight: 800; text-transform: uppercase; color: var(--muted); cursor: pointer;
         }
         .v-pill.active { border-color: var(--accent); color: var(--accent); background: rgba(125, 211, 252, 0.05); }
 
-        .section-header { display: flex; justify-content: space-between; align-items: center; margin: 24px 0 12px; border-bottom: 2px solid var(--border); padding-bottom: 6px; }
-        .section-name { font-size: 12px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.15em; color: var(--accent); }
-        .section-rounds { font-size: 9px; font-weight: 700; color: var(--muted); text-transform: uppercase; }
+        .section-header { display: flex; justify-content: space-between; align-items: center; margin: 20px 0 10px; border-bottom: 2px solid var(--border); padding-bottom: 5px; }
+        .section-name { font-size: 11px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.12em; color: var(--accent); }
+        .section-rounds { font-size: 8px; font-weight: 700; color: var(--muted); text-transform: uppercase; }
 
-        .exercise-card { padding: 18px; border-radius: 20px; background: var(--card); border: 1px solid var(--border); margin-bottom: 16px; }
-        .exercise-title { font-size: 16px; font-weight: 900; text-transform: uppercase; font-style: italic; display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 4px; }
-        .exercise-meta { font-size: 11px; color: var(--accent); font-weight: 700; text-transform: uppercase; margin-bottom: 10px; }
-        .rest-badge { color: var(--accent); text-decoration: underline; cursor: pointer; margin-left: 8px; }
+        .exercise-card { padding: 16px; border-radius: 18px; background: var(--card); border: 1px solid var(--border); margin-bottom: 14px; }
+        .exercise-title { font-size: 15px; font-weight: 900; text-transform: uppercase; font-style: italic; display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 4px; }
+        .exercise-meta { font-size: 10px; color: var(--accent); font-weight: 700; text-transform: uppercase; margin-bottom: 8px; }
+        .rest-badge { color: var(--accent); text-decoration: underline; cursor: pointer; margin-left: 6px; }
         
-        .action-desc { font-size: 13px; color: var(--text); margin-bottom: 12px; font-weight: 400; opacity: 0.9; }
+        .action-desc { font-size: 12px; color: var(--text); margin-bottom: 10px; font-weight: 400; opacity: 0.9; line-height: 1.4; }
         
-        .protocol-grid { display: grid; gap: 6px; background: var(--input); padding: 12px; border-radius: 12px; border: 1px solid var(--border); margin-bottom: 14px; }
-        .p-row { display: flex; font-size: 11px; gap: 8px; line-height: 1.4; }
-        .p-label { font-weight: 900; color: var(--accent); width: 45px; flex-shrink: 0; text-transform: uppercase; }
+        .protocol-grid { display: grid; gap: 5px; background: var(--input); padding: 10px; border-radius: 10px; border: 1px solid var(--border); margin-bottom: 12px; }
+        .p-row { display: flex; font-size: 10px; gap: 8px; line-height: 1.3; }
+        .p-label { font-weight: 900; color: var(--accent); width: 40px; flex-shrink: 0; text-transform: uppercase; }
         .p-val { color: var(--muted); }
 
         .ai-action-btn {
             background: linear-gradient(135deg, #1e293b, #0f172a); 
             border: 1px solid var(--accent); color: var(--accent);
-            width: 100%; padding: 18px; border-radius: 16px; font-weight: 900; font-size: 12px;
-            text-transform: uppercase; letter-spacing: 0.1em; cursor: pointer;
-            display: flex; align-items: center; justify-content: center; gap: 10px;
+            width: 100%; padding: 16px; border-radius: 14px; font-weight: 900; font-size: 11px;
+            text-transform: uppercase; letter-spacing: 0.08em; cursor: pointer;
+            display: flex; align-items: center; justify-content: center; gap: 8px;
             box-shadow: 0 0 15px var(--ai-glow);
         }
 
-        .check-box { width: 22px; height: 22px; border: 2px solid var(--border); border-radius: 6px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+        .check-box { width: 20px; height: 20px; border: 2px solid var(--border); border-radius: 5px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
         .check-box.checked { background: var(--accent); border-color: var(--accent); }
 
-        .log-row { display: flex; gap: 8px; margin-top: 8px; }
-        input[type=number] { width: 100%; background: var(--input); color: var(--text); border: 1px solid var(--border); border-radius: 10px; padding: 12px; font-size: 15px; font-weight: 700; text-align: center; }
-        .save-btn { background: var(--accent); color: #000; border: none; border-radius: 10px; width: 50px; font-weight: 900; cursor: pointer; }
+        .log-row { display: flex; gap: 6px; margin-top: 8px; }
+        input[type=number] { width: 100%; background: var(--input); color: var(--text); border: 1px solid var(--border); border-radius: 8px; padding: 10px; font-size: 14px; font-weight: 700; text-align: center; }
+        .save-btn { background: var(--accent); color: #000; border: none; border-radius: 8px; width: 44px; font-weight: 900; cursor: pointer; }
 
         #timer-overlay {
             position: fixed; inset: 0; background: rgba(10,11,13,0.98);
             z-index: 200; display: none; flex-direction: column;
             align-items: center; justify-content: center; backdrop-filter: blur(10px);
         }
-        #timer-count { font-size: 120px; font-weight: 900; font-variant-numeric: tabular-nums; color: var(--accent); margin-bottom: 20px; }
-        .timer-close { background: var(--card); border: 1px solid var(--border); color: var(--text); padding: 12px 30px; border-radius: 99px; font-weight: 700; text-transform: uppercase; font-size: 12px; }
+        #timer-count { font-size: 100px; font-weight: 900; font-variant-numeric: tabular-nums; color: var(--accent); margin-bottom: 16px; }
+        .timer-close { background: var(--card); border: 1px solid var(--border); color: var(--text); padding: 10px 24px; border-radius: 99px; font-weight: 700; text-transform: uppercase; font-size: 11px; }
 
         .finish-link-btn {
-            background: var(--brand-red); color: #fff; width: 100%; padding: 18px; border: none; border-radius: 16px;
-            font-weight: 900; text-transform: uppercase; letter-spacing: 0.1em; cursor: pointer; margin: 20px 0;
-            display: flex; align-items: center; justify-content: center; gap: 10px;
+            background: var(--brand-red); color: #fff; width: 100%; padding: 16px; border: none; border-radius: 14px;
+            font-weight: 900; text-transform: uppercase; letter-spacing: 0.08em; cursor: pointer; margin: 16px 0;
+            display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 11px;
         }
 
         .loading:after { content: ' .'; animation: dots 1s steps(5, end) infinite; }
@@ -165,7 +167,7 @@
 <body>
 
 <div id="timer-overlay">
-    <div style="font-size: 10px; font-weight: 800; color: var(--muted); text-transform: uppercase; letter-spacing: 0.4em;">Recovery Window</div>
+    <div style="font-size: 9px; font-weight: 800; color: var(--muted); text-transform: uppercase; letter-spacing: 0.4em;">Recovery Window</div>
     <div id="timer-count">60</div>
     <button class="timer-close" onclick="closeTimer()">Skip Rest</button>
 </div>
@@ -189,7 +191,7 @@
         <div class="card">
             <div class="eyebrow">Weekly Activity</div>
             <div id="home-weekly-list" class="summary-list"></div>
-            <div id="home-empty-msg" style="display:none; color:var(--muted); font-size:12px; text-align:center; padding:10px;">No workouts logged yet this week.</div>
+            <div id="home-empty-msg" style="display:none; color:var(--muted); font-size:11px; text-align:center; padding:10px;">No workouts logged yet this week.</div>
         </div>
 
         <div class="eyebrow">Quick Starts</div>
@@ -201,7 +203,7 @@
                 <i data-lucide="zap"></i><span>Lower Body</span>
             </div>
             <div class="launch-btn" onclick="openTrainer('move', 'A')">
-                <i data-lucide="activity"></i><span>Move Day</span>
+                <i data-lucide="activity"></i><span>Total Body</span>
             </div>
             <div class="launch-btn" onclick="showPanel('panel-hits', document.getElementById('nav-hits')); switchHitTab('core')">
                 <i data-lucide="shield"></i><span>Core Burner</span>
@@ -217,10 +219,10 @@
         <div class="train-toggle">
             <div class="t-btn active" id="train-type-upper" onclick="setTrainType('upper')">Upper</div>
             <div class="t-btn" id="train-type-lower" onclick="setTrainType('lower')">Lower</div>
-            <div class="t-btn" id="train-type-move" onclick="setTrainType('move')">Move</div>
+            <div class="t-btn" id="train-type-move" onclick="setTrainType('move')">Total Body</div>
         </div>
         
-        <p id="path-lead-in" style="font-size:12px; font-weight:800; text-transform:uppercase; color:var(--muted); margin-bottom:10px; text-align:center;">Choose your path</p>
+        <p id="path-lead-in" style="font-size:10px; font-weight:800; text-transform:uppercase; color:var(--muted); margin-bottom:10px; text-align:center;">Choose your path</p>
         
         <div id="version-pills" class="version-row"></div>
 
@@ -259,9 +261,9 @@
         <button class="ai-action-btn" onclick="runAi('vault')">
             <i data-lucide="trending-up"></i> Forecast Next Week
         </button>
-        <div id="res-vault" style="margin-top:15px; background:rgba(255,255,255,0.02); padding:15px; border-radius:12px; font-size:13px; line-height:1.6; display:none;"></div>
+        <div id="res-vault" style="margin-top:15px; background:rgba(255,255,255,0.02); padding:15px; border-radius:12px; font-size:12px; line-height:1.5; display:none;"></div>
         <div id="vault-list" style="margin-top:20px;"></div>
-        <button onclick="clearAllData()" style="width:100%; padding:15px; margin-top:30px; background:transparent; border:1px solid #991b1b; color:#ef4444; border-radius:12px; font-weight:700; font-size:11px;">Wipe History</button>
+        <button onclick="clearAllData()" style="width:100%; padding:15px; margin-top:30px; background:transparent; border:1px solid #991b1b; color:#ef4444; border-radius:12px; font-weight:700; font-size:10px;">Wipe History</button>
     </div>
 
 </div>
@@ -275,7 +277,7 @@
         <i data-lucide="layout"></i><span>Train</span>
     </div>
     <div id="nav-hits" class="nav-item" onclick="showPanel('panel-hits', this)">
-        <i data-lucide="zap"></i><span>Quick Hits</span>
+        <i data-lucide="zap"></i><span>Hits</span>
     </div>
     <div class="nav-item" onclick="showPanel('panel-vault', this)">
         <i data-lucide="archive"></i><span>Vault</span>
@@ -360,7 +362,7 @@
             B: { label: "Unilateral Stability", warmup: ["Leg Swings", "Cossack Squats", "Lunges", "Hip Switches"], rounds: {
                 primary: [
                     { name: 'Conventional Deadlift', sets: '4x5-8', rest: 150, action: 'Pull barbell from floor to hip with a neutral spine.', feel: 'Hams, Glutes, Low Back', cue: 'Push floor away', watch: 'Back rounding' },
-                    { name: 'Broad Jumps', sets: '4x3', rest: 60, action: 'Explosive forward leap focusing on distance.', feel: 'Horizontal power', cue: 'Swing arms hard', watch: 'Hard landing' }
+                    { name: 'Broad Jumps', sets: '4x3', rest: 60, feel: 'Horizontal power', cue: 'Swing arms hard', watch: 'Hard landing' }
                 ],
                 structure: [
                     { name: 'Bulgarian Split Squat', sets: '3x10/side', rest: 60, feel: 'Quads and glute med', cue: 'Lean forward slightly', watch: 'Knee tracking inward' },
@@ -434,7 +436,7 @@
     async function runAi(mode) {
         const target = document.getElementById(`res-${mode}`);
         target.style.display = 'block';
-        target.innerHTML = `<div class="exercise-card" style="text-align:center">Architecting Session<span class='loading'></span></div>`;
+        target.innerHTML = `<div class="exercise-card" style="text-align:center">Consulting Coach<span class='loading'></span></div>`;
         
         let prompt = "";
         let sys = "Return a JSON array of exercises: [{name, sets, action, feel, cue, watch}]. 'sets' should be specific like '15 Reps' or '30 Seconds'. The total workout should take 5-6 minutes including transitions. No warmups.";
@@ -442,9 +444,9 @@
         if(mode === 'core') {
             prompt = "Create a 5-6 minute core burner workout. Give specific rep counts (e.g., 15 reps, 10/side) or holds for each move. No 60s generic blocks. Pure bodyweight.";
         } else if(mode === 'finish') {
-            prompt = "Create a 5-6 minute high intensity finisher. Use rep-based goals like '20 Mountain Climbers' or '10 Jump Squats'. Ensure total volume takes 5-6 minutes.";
+            prompt = "Create a 5-6 minute high intensity finisher challenge. Use rep-based goals like '20 Mountain Climbers' or '10 Jump Squats'. Ensure total volume takes 5-6 minutes.";
         } else if(mode === 'vault') {
-            const logs = JSON.parse(localStorage.getItem('ff_logs_v18') || '[]');
+            const logs = JSON.parse(localStorage.getItem('ff_logs_v19') || '[]');
             if(logs.length < 1) { target.innerText = "Log a workout first."; return; }
             sys = "Expert Strength Coach. Analyze performance trends.";
             prompt = `Analyze these logs and predict next week's targets: ${JSON.stringify(logs.slice(0,10))}. Return a JSON object with a single string 'forecast'.`;
@@ -623,14 +625,14 @@
         const row = btn.parentElement, w = row.querySelector('.w-in').value, r = row.querySelector('.r-in').value;
         if(!w || !r) return;
         const entry = { name, w, r, date: new Date().toLocaleDateString('en-US', {month:'short', day:'numeric'}), ts: Date.now() };
-        let logs = JSON.parse(localStorage.getItem('ff_logs_v18') || '[]'); logs.unshift(entry);
-        localStorage.setItem('ff_logs_v18', JSON.stringify(logs));
+        let logs = JSON.parse(localStorage.getItem('ff_logs_v19') || '[]'); logs.unshift(entry);
+        localStorage.setItem('ff_logs_v19', JSON.stringify(logs));
         btn.innerHTML = '✓'; btn.style.background = 'var(--good)';
         setTimeout(() => { btn.innerHTML = '+'; btn.style.background = 'var(--accent)'; row.querySelector('.w-in').value=''; row.querySelector('.r-in').value=''; }, 1500);
     }
 
     function renderHome() {
-        const logs = JSON.parse(localStorage.getItem('ff_logs_v18') || '[]');
+        const logs = JSON.parse(localStorage.getItem('ff_logs_v19') || '[]');
         const list = document.getElementById('home-weekly-list');
         const empty = document.getElementById('home-empty-msg');
         if(logs.length < 1) { list.innerHTML = ''; empty.style.display = 'block'; return; }
@@ -646,13 +648,13 @@
     }
 
     function renderVault() {
-        const logs = JSON.parse(localStorage.getItem('ff_logs_v18') || '[]');
+        const logs = JSON.parse(localStorage.getItem('ff_logs_v19') || '[]');
         const container = document.getElementById('vault-list');
         if(logs.length < 1) { container.innerHTML = '<p style="text-align:center; padding:40px; color:var(--muted)">Vault Empty.</p>'; return; }
         container.innerHTML = logs.slice(0, 40).map(l => `<div class="summary-item"><div><div style="color:var(--muted); font-size:10px;">${l.date}</div><div style="font-weight:700">${l.name}</div></div><div style="font-weight:900; color:var(--accent)">${l.w} x ${l.r}</div></div>`).join('');
     }
 
-    function clearAllData() { if(confirm("Wipe history?")) { localStorage.removeItem('ff_logs_v18'); renderVault(); renderHome(); } }
+    function clearAllData() { if(confirm("Wipe history?")) { localStorage.removeItem('ff_logs_v19'); renderVault(); renderHome(); } }
 
     window.onload = () => {
         lucide.createIcons();
