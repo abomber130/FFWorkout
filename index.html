@@ -176,7 +176,7 @@
     <div class="app">
         <div class="header-brand">
             <img src="logo(1).png" alt="FF" class="logo-img" onerror="this.style.display='none'">
-            <div class="brand-name">Foundational <span>Fitness</span><span class="version-badge">v25</span></div>
+            <div class="brand-name">Foundational <span>Fitness</span><span class="version-badge">v26</span></div>
         </div>
     </div>
 </div>
@@ -222,8 +222,6 @@
             <div class="t-btn" id="train-type-move" onclick="setTrainType('move')">Total Body</div>
         </div>
         
-        <p id="path-lead-in" style="font-size:10px; font-weight:800; text-transform:uppercase; color:var(--muted); margin-bottom:10px; text-align:center;">Choose your path</p>
-        
         <div id="version-pills" class="version-row"></div>
 
         <div id="workout-render-area"></div>
@@ -240,14 +238,14 @@
         </div>
 
         <div id="hit-content-core">
-            <button class="ai-action-btn" onclick="runAi('core')">
+            <button class="ai-action-btn" onclick="runGenerator('core')">
                 <i data-lucide="shield"></i> Generate 5-Min Core Session
             </button>
             <div id="res-core" style="margin-top:15px;"></div>
         </div>
 
         <div id="hit-content-finish" style="display:none">
-            <button class="ai-action-btn" onclick="runAi('finish')">
+            <button class="ai-action-btn" onclick="runGenerator('finish')">
                 <i data-lucide="swords"></i> Spawn 5-Min Finisher
             </button>
             <div id="res-finish" style="margin-top:15px;"></div>
@@ -258,7 +256,7 @@
     <div id="panel-vault" class="panel">
         <h2>Vault</h2>
         <p class="welcome-sub">Review history and plan progression.</p>
-        <button class="ai-action-btn" onclick="runAi('vault')">
+        <button class="ai-action-btn" onclick="runGenerator('vault')">
             <i data-lucide="trending-up"></i> Forecast Next Week
         </button>
         <div id="res-vault" style="margin-top:15px; background:rgba(255,255,255,0.02); padding:15px; border-radius:12px; font-size:12px; line-height:1.5; display:none;"></div>
@@ -285,8 +283,95 @@
 </div>
 
 <script>
-    // PASTE YOUR GOOGLE AI STUDIO API KEY BELOW
-    const apiKey = ""; 
+    // --- LOCAL DATABASE (REPLACES AI) ---
+    const localDB = {
+        core: [
+            { name: "Hollow Body Hold", action: "Pin lower back to the floor and extend limbs.", feel: "Deep abdominals", cue: "Ribs to pelvis", watch: "Lower back arching" },
+            { name: "Dead Bugs", action: "Opposite arm and leg extension from table-top position.", feel: "Core stability", cue: "Exhale on extension", watch: "Rib flare" },
+            { name: "Russian Twists", action: "Rotate torso side to side from a seated V-position.", feel: "Obliques", cue: "Eyes follow hands", watch: "Only moving arms" },
+            { name: "Plank Shoulder Taps", action: "From high plank, tap opposite shoulder.", feel: "Anti-rotation", cue: "Hips square to floor", watch: "Rocking side to side" },
+            { name: "Reverse Crunches", action: "Curl pelvis up toward your ribs.", feel: "Lower abdominals", cue: "Control the descent", watch: "Using momentum" },
+            { name: "Side Plank Hold", action: "Hold body in a straight line on one forearm.", feel: "Lateral core", cue: "Push floor away", watch: "Hips sagging" },
+            { name: "Bicycle Crunches", action: "Opposite elbow to knee with cycling legs.", feel: "Total core", cue: "Slow and deliberate", watch: "Yanking the neck" },
+            { name: "Superman Holds", action: "Lift chest and thighs off floor.", feel: "Lower back and glutes", cue: "Squeeze glutes", watch: "Hyper-extending neck" },
+            { name: "V-Ups", action: "Fold body to touch hands to toes.", feel: "Explosive core", cue: "Snap up together", watch: "Bending knees" },
+            { name: "Leg Raises", action: "Lower straight legs toward floor and return.", feel: "Lower abdominals", cue: "Low back pinned", watch: "Back leaving floor" }
+        ],
+        finish: [
+            { name: "Mountain Climbers", action: "Drive knees to chest rapidly in plank position.", feel: "Cardio and shoulders", cue: "Keep hips low", watch: "Bouncing hips" },
+            { name: "Jump Squats", action: "Explode up from a squat position.", feel: "Quads and glutes", cue: "Soft landings", watch: "Knees caving" },
+            { name: "Burpees", action: "Drop to floor, push up, jump at the top.", feel: "Total body conditioning", cue: "Pace yourself", watch: "Lazy pushups" },
+            { name: "Skater Jumps", action: "Leap side to side, landing on one leg.", feel: "Lateral power", cue: "Absorb the landing", watch: "Stiff knees" },
+            { name: "High Knees", action: "Run in place bringing knees above waist.", feel: "Cardio output", cue: "Pump the arms", watch: "Leaning backward" },
+            { name: "Broad Jumps", action: "Jump as far forward as possible.", feel: "Explosive leg power", cue: "Use arm swing", watch: "Landing heavy" },
+            { name: "Push-up Jacks", action: "Perform a pushup while jumping feet wide.", feel: "Chest and core", cue: "Keep core tight", watch: "Hips dropping" },
+            { name: "Tuck Jumps", action: "Jump and bring knees to chest.", feel: "Max power output", cue: "Quick ground contact", watch: "Double bouncing" }
+        ],
+        move_A: { // Flow
+            warmup: ["Cat-Cow Flow", "World's Greatest Stretch", "Arm Circles", "Glute Bridges"],
+            primary: [
+                { name: "Bodyweight Squats", action: "Controlled squats focusing on depth.", feel: "Quads and hips", cue: "Chest tall", watch: "Heels lifting" },
+                { name: "Plank to Down Dog", action: "Shift from plank pushing hips high.", feel: "Shoulders and hamstrings", cue: "Press floor away", watch: "Rounding upper back" }
+            ],
+            structure: [
+                { name: "Alternating Reverse Lunges", action: "Step backward into a deep lunge.", feel: "Glutes and quads", cue: "Drive through front heel", watch: "Wobbly knee" },
+                { name: "Bear Crawls", action: "Crawl forward with knees hovering off floor.", feel: "Total body coordination", cue: "Keep back flat as a table", watch: "Hips too high" },
+                { name: "Bird-Dogs", action: "Opposite arm/leg reach from all fours.", feel: "Spinal stability", cue: "Reach long, not high", watch: "Arching lower back" }
+            ],
+            integration: [
+                { name: "Inchworms", action: "Walk hands out to plank, then feet to hands.", feel: "Hamstring stretch", cue: "Keep legs straight", watch: "Bending knees too much" },
+                { name: "Cossack Squats", action: "Deep lateral lunge keeping one leg straight.", feel: "Adductors and hips", cue: "Sit back on heel", watch: "Heel of bent leg lifting" }
+            ]
+        },
+        move_B: { // HIIT
+            warmup: ["Jumping Jacks", "High Knees", "Arm Swings", "Bodyweight Squats"],
+            primary: [
+                { name: "Dumbbell Thrusters", action: "Squat and press dumbbells overhead.", feel: "Total body power", cue: "Use legs to drive the press", watch: "Pressing early" },
+                { name: "Burpees over Dumbbell", action: "Burpee, then lateral jump over weight.", feel: "Anaerobic capacity", cue: "Stay moving", watch: "Tripping on equipment" }
+            ],
+            structure: [
+                { name: "Renegade Rows", action: "Row DB while holding plank position.", feel: "Core and back", cue: "Resist rotation", watch: "Hips swiveling" },
+                { name: "Jump Lunges", action: "Explosive lunge switching legs in air.", feel: "Quad burn", cue: "Soft landings", watch: "Knee slamming floor" },
+                { name: "Dumbbell Snatches", action: "Explosively lift DB from floor to overhead.", feel: "Hips and shoulders", cue: "Zip the coat", watch: "Curling the weight" }
+            ],
+            integration: [
+                { name: "Goblet Squats (Speed)", action: "Fast, unbroken goblet squats.", feel: "Quads", cue: "Piston-like speed", watch: "Losing depth" },
+                { name: "Mountain Climbers", action: "Rapid knee drives in plank.", feel: "Core and cardio", cue: "Shoulders over wrists", watch: "Hips rising" }
+            ]
+        },
+        move_C: { // Power
+            warmup: ["Leg Swings", "Scapular Pushups", "Pogo Jumps", "Hip Halos"],
+            primary: [
+                { name: "Plyo Pushups", action: "Explosive pushup, hands leave floor.", feel: "Chest power", cue: "Snap the floor away", watch: "Landing with stiff elbows" },
+                { name: "Broad Jumps", action: "Max distance horizontal leaps.", feel: "Glute power", cue: "Stick the landing", watch: "Falling forward" }
+            ],
+            structure: [
+                { name: "Pistol Squats (Assisted)", action: "Single leg squat.", feel: "Unilateral strength", cue: "Control the descent", watch: "Crashing to the bottom" },
+                { name: "Tuck Jumps", action: "Jump bringing knees to chest.", feel: "Elastic power", cue: "Quick ground reaction", watch: "Double bouncing" },
+                { name: "Pike Pushups", action: "Vertical pushup from downward dog.", feel: "Shoulder strength", cue: "Head forward of hands", watch: "Elbows flaring wide" }
+            ],
+            integration: [
+                { name: "Skater Jumps", action: "Lateral bounding.", feel: "Lateral power", cue: "Absorb and explode", watch: "Stiff landings" },
+                { name: "V-Ups", action: "Explosive core fold.", feel: "Abs", cue: "Snap to the middle", watch: "Bent knees" }
+            ]
+        },
+        move_D: { // Recovery
+            warmup: ["Neck Circles", "Wrist Rolls", "Ankle Rolls", "Deep Breathing"],
+            primary: [
+                { name: "90/90 Hip Switches", action: "Rotate hips while seated on floor.", feel: "Hip joint mobility", cue: "Stay tall", watch: "Slumping backward" },
+                { name: "Thread the Needle", action: "Reach arm under torso from all fours.", feel: "Thoracic spine", cue: "Breathe into the stretch", watch: "Forcing the twist" }
+            ],
+            structure: [
+                { name: "Pigeon Pose", action: "Fold over front bent leg.", feel: "Glutes and hips", cue: "Square hips to floor", watch: "Rolling to one side" },
+                { name: "Couch Stretch", action: "Kneeling quad stretch against wall.", feel: "Quads and hip flexors", cue: "Squeeze glute of stretched leg", watch: "Arching lower back" },
+                { name: "Child's Pose", action: "Sit hips back to heels, arms forward.", feel: "Lats and low back", cue: "Relax completely", watch: "Holding tension" }
+            ],
+            integration: [
+                { name: "Supine Spinal Twist", action: "Lay on back, cross one knee over body.", feel: "Lower back release", cue: "Keep opposite shoulder down", watch: "Forcing knee to floor" },
+                { name: "Cat-Cow", action: "Flex and extend spine slowly.", feel: "Spinal articulation", cue: "Move vertebra by vertebra", watch: "Rushing the movement" }
+            ]
+        }
+    };
 
     const library = {
         upper: {
@@ -396,105 +481,86 @@
             } }
         },
         move: {
-            A: { label: "Athletic Flow", prompt: "Create a 45 min Flow session focusing on Mobility and Low Impact Cardio. USE ONLY HOME GYM EQUIPMENT. NO SPRINTS. 3 Rounds per block." },
-            B: { label: "High Intensity", prompt: "Create a 45 min HIIT session focusing on Plyo and High Volume reps. USE ONLY HOME GYM EQUIPMENT. NO SPRINTS. 3 Rounds per block." },
-            C: { label: "Bodyweight Power", prompt: "Create a 45 min explosive bodyweight power session. NO EQUIPMENT. 3 Rounds per block." },
-            D: { label: "Sore & Stiff (Recovery)", prompt: "Create a 40 min session focusing on deep mobility and core activation. NO EQUIPMENT. 3 Rounds per block." }
+            A: { label: "Athletic Flow", generatorKey: "move_A" },
+            B: { label: "High Intensity", generatorKey: "move_B" },
+            C: { label: "Bodyweight Power", generatorKey: "move_C" },
+            D: { label: "Sore & Stiff", generatorKey: "move_D" }
         }
     };
 
     let appState = { type: 'upper', version: 'A', timer: null };
 
-    // --- ROCK SOLID GEMINI FIX (No Retries, Explicit Error Surfacing) ---
-    async function askCoach(prompt, systemText) {
-        // Using 1.5 flash standard as it is guaranteed to work on all free-tier API keys.
-        const model = apiKey ? "gemini-2.0-flash" : "gemini-2.5-flash-preview-09-2025";
-        const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
-        
-        const payload = { 
-            contents: [{parts: [{text: prompt}]}], 
-            generationConfig: { responseMimeType: "application/json" }
-        };
-        
-        if (systemText) {
-            payload.systemInstruction = { parts: [{ text: systemText }] };
-        }
+    // --- PROCEDURAL GENERATOR (100% LOCAL, NO API REQUIRED) ---
+    function getRandomItems(arr, count) {
+        const shuffled = [...arr].sort(() => 0.5 - Math.random());
+        return shuffled.slice(0, count);
+    }
 
-        try {
-            const response = await fetch(url, { 
-                method: 'POST', 
-                headers: {'Content-Type': 'application/json'}, 
-                body: JSON.stringify(payload)
-            });
+    function getRandomSet(type) {
+        const reps = ['12 Reps', '15 Reps', '20 Reps', '10/side'];
+        const time = ['30 Seconds', '45 Seconds', '60 Seconds'];
+        if (type === 'core') return [...reps, ...time][Math.floor(Math.random() * 7)];
+        return reps[Math.floor(Math.random() * reps.length)];
+    }
+
+    async function runGenerator(mode) {
+        const target = document.getElementById(`res-${mode}`);
+        target.style.display = 'block';
+        target.innerHTML = `<div class="exercise-card" style="text-align:center">Building Workout...<span class='loading'></span></div>`;
+        
+        // Fake a tiny delay to make the UI feel responsive
+        await new Promise(r => setTimeout(r, 600));
+
+        if(mode === 'core') {
+            let exercises = getRandomItems(localDB.core, 5).map(ex => ({...ex, sets: getRandomSet('core')}));
+            renderSimpleList(exercises, target);
+        } 
+        else if(mode === 'finish') {
+            let exercises = getRandomItems(localDB.finish, 5).map(ex => ({...ex, sets: getRandomSet('finish')}));
+            renderSimpleList(exercises, target);
+        } 
+        else if(mode === 'vault') {
+            const logs = JSON.parse(localStorage.getItem('ff_logs_v24') || '[]');
+            if(logs.length < 1) { target.innerHTML = "<div class='exercise-card'>Log a workout first to see predictions.</div>"; return; }
             
-            if (!response.ok) {
-                const errData = await response.text();
-                // If this is a 404, the user's API key might require a different model version, but 1.5-flash is universally standard.
-                return JSON.stringify({error: `API Error (${response.status}): ${errData}`});
-            }
-            
-            const json = await response.json();
-            
-            if (!json.candidates || json.candidates.length === 0) {
-                return JSON.stringify({error: `Safety/Quota Block: The API blocked the response.`});
-            }
-            
-            let text = json.candidates[0].content?.parts?.[0]?.text || "";
-            return text.replace(/```json/gi, '').replace(/```/g, '').trim();
-            
-        } catch(e) { 
-            return JSON.stringify({error: `Network Error: ${e.message}`});
+            // Local Forecast Logic
+            let recentMainLift = logs.find(l => l.name.includes("Bench") || l.name.includes("Squat") || l.name.includes("Deadlift"));
+            let text = recentMainLift 
+                ? `Based on your recent ${recentMainLift.name} (${recentMainLift.w}lbs x ${recentMainLift.r}), aim to increase load by 2.5-5lbs next session while maintaining the same rep range to ensure progressive overload.`
+                : "Keep pushing volume! Try to beat your rep counts from last week across the board.";
+                
+            target.innerHTML = `<div style="background:rgba(255,255,255,0.05); padding:15px; border-radius:12px; line-height:1.5;">${text}</div>`;
         }
     }
 
-    async function runAi(mode) {
-        const target = document.getElementById(`res-${mode}`);
-        target.style.display = 'block';
-        target.innerHTML = `<div class="exercise-card" style="text-align:center">Consulting Coach<span class='loading'></span></div>`;
+    async function renderWorkout() {
+        const area = document.getElementById('workout-render-area');
+        const data = library[appState.type][appState.version];
         
-        let prompt = "";
-        let sys = "You are a fitness coach. Return exactly the requested JSON format without any markdown wrappers.";
-        
-        if(mode === 'core') {
-            prompt = "Create a 5-6 minute core burner workout. Direct rep counts or holds for each move. Pure bodyweight. Provide exactly 5 movements. Return exactly this JSON: {\"exercises\": [{\"name\":\"str\", \"sets\":\"str\", \"action\":\"str\", \"feel\":\"str\", \"cue\":\"str\", \"watch\":\"str\"}]}";
-        } else if(mode === 'finish') {
-            prompt = "Create a 5-6 minute session challenge. Rep-based goals (e.g., '15 Mountain Climbers'). Provide exactly 5 movements total. Return exactly this JSON: {\"exercises\": [{\"name\":\"str\", \"sets\":\"str\", \"action\":\"str\", \"feel\":\"str\", \"cue\":\"str\", \"watch\":\"str\"}]}";
-        } else if(mode === 'vault') {
-            const logs = JSON.parse(localStorage.getItem('ff_logs_v24') || '[]'); // Kept v24 key to preserve data
-            if(logs.length < 1) { target.innerText = "Log a workout first."; return; }
-            sys = "Expert Strength Coach. Analyze performance trends.";
-            prompt = `Analyze these logs and predict next week's targets: ${JSON.stringify(logs.slice(0,10))}. Return exactly this JSON: {\"forecast\": \"your detailed string here\"}`;
-        }
-
-        const res = await askCoach(prompt, sys);
-        
-        if (res && res.includes('"error":')) {
-            let errMsg = "Connection failed.";
-            try { errMsg = JSON.parse(res).error; } catch(e) {}
-            target.innerHTML = `
-                <div class="exercise-card" style="text-align:center; padding: 20px;">
-                    <p style="color: #ff6b6b; margin-bottom:10px; font-weight: 800;">Connection Failed</p>
-                    <p style="font-size: 11px; margin-bottom: 15px; color: var(--muted); word-break: break-word;">${errMsg}</p>
-                    <button onclick="runAi('${mode}')" class="v-pill active" style="border:none;">Try Again</button>
-                </div>`;
+        if(appState.type === 'move') {
+            area.innerHTML = "<div class='exercise-card' style='text-align:center'>Architecting Path<span class='loading'></span></div>";
+            await new Promise(r => setTimeout(r, 500));
+            
+            const pool = localDB[data.generatorKey];
+            const generatedWorkout = {
+                warmup: pool.warmup,
+                primary: getRandomItems(pool.primary, 2).map(ex => ({...ex, sets: '3x10-15'})),
+                structure: getRandomItems(pool.structure, 2).map(ex => ({...ex, sets: '3x12'})),
+                integration: getRandomItems(pool.integration, 2).map(ex => ({...ex, sets: '2x15'})),
+            };
+            
+            renderJsonWorkout(generatedWorkout, area, 3); 
             return;
         }
+
+        renderJsonWorkout(data.rounds ? data.rounds : data, area, null, data.warmup);
         
-        if(res && mode !== 'vault') {
-            try {
-                const data = JSON.parse(res);
-                renderSimpleList(data.exercises || data, target);
-            } catch(e) { 
-                target.innerHTML = `<div class="exercise-card" style="text-align:center; color: #ff6b6b;">Data Parsing Error. Try again.</div>`; 
-            }
-        } else if (res && mode === 'vault') {
-            try {
-                const parsed = JSON.parse(res);
-                target.innerHTML = `<div style="background:rgba(255,255,255,0.05); padding:15px; border-radius:12px;">${(parsed.forecast || res).replace(/\n/g, '<br>')}</div>`;
-            } catch(e) {
-                target.innerHTML = `<div class="exercise-card" style="text-align:center; color: #ff6b6b;">Forecast Parsing Error. Try again.</div>`;
-            }
-        }
+        const finBtn = document.createElement('button');
+        finBtn.className = "finish-link-btn";
+        finBtn.innerHTML = "<i data-lucide='swords'></i> Finish with Challenge";
+        finBtn.onclick = () => { showPanel('panel-hits', document.getElementById('nav-hits')); switchHitTab('finish'); };
+        area.appendChild(finBtn);
+        lucide.createIcons();
     }
 
     // --- UI Logic ---
@@ -538,55 +604,11 @@
         renderPills();
     }
 
-    async function renderWorkout() {
-        const area = document.getElementById('workout-render-area');
-        const data = library[appState.type][appState.version];
-        
-        if(appState.type === 'move') {
-            area.innerHTML = "<div class='exercise-card' style='text-align:center'>Architecting Path<span class='loading'></span></div>";
-            const sysFormat = `Expert fitness coach. Return ONLY valid JSON format exactly matching this: {"warmup":["str","str","str","str"], "primary":[{"name":"str","sets":"str","action":"str","feel":"str","cue":"str","watch":"str"}], "structure":[{"name":"str","sets":"str","action":"str","feel":"str","cue":"str","watch":"str"}], "integration":[{"name":"str","sets":"str","action":"str","feel":"str","cue":"str","watch":"str"}]}`;
-            const res = await askCoach(data.prompt, sysFormat);
-            
-            if (res && res.includes('"error":')) {
-                let errMsg = "Unknown Error";
-                try { errMsg = JSON.parse(res).error; } catch(e) {}
-                area.innerHTML = `
-                    <div class='exercise-card' style='text-align:center;'>
-                        <p style="color: #ff6b6b; margin-bottom:10px; font-weight: 800;">Connection Failed</p>
-                        <p style="font-size: 11px; margin-bottom: 15px; color: var(--muted); word-break: break-word;">${errMsg}</p>
-                        <button onclick="renderWorkout()" class="v-pill active" style="border:none;">Retry</button>
-                    </div>`;
-                return;
-            }
-
-            if(res) {
-                try { 
-                    renderJsonWorkout(JSON.parse(res), area, 3); 
-                } catch(e) { 
-                    area.innerHTML = `<div class='exercise-card' style='text-align:center; color: #ff6b6b;'>Parsing error. <button onclick="renderWorkout()" class="v-pill active" style="margin-top:10px; border:none;">Retry</button></div>`; 
-                }
-            } else {
-                area.innerHTML = `<div class="exercise-card" style="text-align:center;"><p style="color: #ff6b6b; margin-bottom:10px;">Connection Error</p><button onclick="renderWorkout()" class="v-pill active" style="border:none;">Try Again</button></div>`;
-            }
-            return;
-        }
-
-        renderJsonWorkout(data.rounds ? data.rounds : data, area, null, data.warmup);
-        
-        const finBtn = document.createElement('button');
-        finBtn.className = "finish-link-btn";
-        finBtn.innerHTML = "<i data-lucide='swords'></i> Finish with Challenge";
-        finBtn.onclick = () => { showPanel('panel-hits', document.getElementById('nav-hits')); switchHitTab('finish'); };
-        area.appendChild(finBtn);
-        lucide.createIcons();
-    }
-
     function renderJsonWorkout(data, container, forcedRounds, warmupOverride) {
-        // Fallback names in case AI uses alternate keys
-        const wu = warmupOverride || data.warmup || data.Warmup || [];
-        const prim = data.primary || data.Primary || data.round1 || data.Round1 || data.Foundation || [];
-        const struc = data.structure || data.Structure || data.round2 || data.Round2 || [];
-        const integ = data.integration || data.Integration || data.round3 || data.Round3 || [];
+        const wu = warmupOverride || data.warmup || [];
+        const prim = data.primary || [];
+        const struc = data.structure || [];
+        const integ = data.integration || [];
 
         container.innerHTML = `
             <div class="card">
