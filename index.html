@@ -38,6 +38,7 @@
 
         .app { max-width: 500px; margin: 0 auto; padding: 0 16px; }
 
+        /* Header */
         .header {
             position: sticky; top: 0; z-index: 50;
             background: rgba(10, 11, 13, 0.95);
@@ -51,6 +52,7 @@
         .brand-name { font-size: 13px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.05em; }
         .brand-name span { color: var(--brand-red); }
 
+        /* Bottom Nav */
         .nav-bar {
             position: fixed; bottom: 0; left: 0; right: 0;
             background: rgba(21, 23, 28, 0.96);
@@ -68,6 +70,7 @@
         .nav-item span { font-size: 8px; font-weight: 700; text-transform: uppercase; }
         .nav-item.active { color: var(--accent); }
 
+        /* Panels */
         .panel { display: none; padding-top: 16px; animation: fadeIn 0.2s ease-out; }
         .panel.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
@@ -281,6 +284,7 @@
 </div>
 
 <script>
+    // PASTE YOUR GOOGLE AI STUDIO API KEY BELOW
     const apiKey = "AIzaSyCdn-VpZ4O50qobz0BIvanbLNHOR3UsnsA"; 
 
     const library = {
@@ -292,13 +296,13 @@
                 ],
                 structure: [
                     { name: 'Overhead Press', sets: '3x8-10', rest: 90, action: 'Press weight from shoulders to full lockout overhead.', feel: 'Shoulder caps and triceps', cue: 'Punch the ceiling', watch: 'Excessive lower back arch' },
-                    { name: 'TRX Row', sets: '3x12-15', rest: 60, feel: 'Upper back and rear delts', cue: 'Shoulders down and back', watch: 'Sagging hips' },
-                    { name: 'Lateral Raise', sets: '3x15', rest: 45, feel: 'Side deltoids', cue: 'Lead with the elbows', watch: 'Shrugging the traps' }
+                    { name: 'TRX Row', sets: '3x12-15', rest: 60, action: 'Lean back and pull chest to the TRX handles.', feel: 'Upper back and rear delts', cue: 'Shoulders down and back', watch: 'Sagging hips' },
+                    { name: 'Lateral Raise', sets: '3x15', rest: 45, action: 'Raise weights out to the side with slightly bent elbows.', feel: 'Side deltoids', cue: 'Lead with the elbows', watch: 'Shrugging the traps' }
                 ],
                 integration: [
-                    { name: 'Rear Delt Fly', sets: '2x15', rest: 30, feel: 'Rear shoulder', cue: 'Pinkies up', watch: 'Using momentum' },
-                    { name: 'Bicep Curl', sets: '2x12', rest: 30, feel: 'Biceps', cue: 'Squeeze at top', watch: 'Swinging the torso' },
-                    { name: 'Tricep Extension', sets: '2x12', rest: 30, feel: 'Triceps', cue: 'Lock the elbows', watch: 'Flaring elbows' },
+                    { name: 'Rear Delt Fly', sets: '2x15', rest: 30, action: 'Hinge and fly arms out wide to target the back of the shoulder.', feel: 'Rear shoulder', cue: 'Pinkies up', watch: 'Using momentum' },
+                    { name: 'Bicep Curl', sets: '2x12', rest: 30, action: 'Curl weights to shoulders while keeping elbows pinned.', feel: 'Biceps', cue: 'Squeeze at top', watch: 'Swinging the torso' },
+                    { name: 'Tricep Extension', sets: '2x12', rest: 30, action: 'Press weight down or overhead to lock out elbows.', feel: 'Triceps', cue: 'Lock the elbows', watch: 'Flaring elbows' },
                     { name: 'Plyo Pushups', sets: '2x8-10', rest: 60, action: 'Explode off the floor so hands leave the ground.', feel: 'Chest power', cue: 'Snap the floor away', watch: 'Landing with stiff elbows' }
                 ] 
             } },
@@ -308,31 +312,31 @@
                     { name: 'Pull-ups (TRX/Bar)', sets: '4xMAX', rest: 90, action: 'Pull your chin above the bar or handles.', feel: 'Lats and biceps', cue: 'Chest to bar', watch: 'Kicking legs' }
                 ],
                 structure: [
-                    { name: 'Arnold Press', sets: '3x12', rest: 60, feel: 'Shoulder integration', cue: 'Smooth rotation', watch: 'Locking elbows too hard' },
-                    { name: 'Landmine Row', sets: '3x10', rest: 60, feel: 'Mid-back and lats', cue: 'Elbows tight', watch: 'Rounding the spine' },
-                    { name: 'Dumbbell Shrugs', sets: '3x15', rest: 45, feel: 'Upper traps', cue: 'Hold for 1s at top', watch: 'Neck thrusting forward' }
+                    { name: 'Arnold Press', sets: '3x12', rest: 60, action: 'Rotate weights to integrate the shoulder girdle.', feel: 'Shoulder integration', cue: 'Smooth rotation', watch: 'Locking elbows too hard' },
+                    { name: 'Landmine Row', sets: '3x10', rest: 60, action: 'Row using the landmine bar for a deep contraction.', feel: 'Mid-back and lats', cue: 'Elbows tight', watch: 'Rounding the spine' },
+                    { name: 'Dumbbell Shrugs', sets: '3x15', rest: 45, action: 'Focus on vertical elevation of the traps.', feel: 'Upper traps', cue: 'Hold for 1s at top', watch: 'Neck thrusting forward' }
                 ],
                 integration: [
-                    { name: 'Hammer Curl', sets: '2x12', rest: 30, feel: 'Forearms and biceps', cue: 'Squeeze the grip', watch: 'Swinging' },
-                    { name: 'Skullcrushers', sets: '2x12', rest: 30, feel: 'Tricep long head', cue: 'Pinned elbows', watch: 'Elbows drifting forward' },
-                    { name: 'Front Raise', sets: '2x12', rest: 30, feel: 'Front delt', cue: 'Stay upright', watch: 'Leaning back' },
+                    { name: 'Hammer Curl', sets: '2x12', rest: 30, action: 'Curl with neutral grip (thumbs up).', feel: 'Forearms and biceps', cue: 'Squeeze the grip', watch: 'Swinging' },
+                    { name: 'Skullcrushers', sets: '2x12', rest: 30, action: 'Lower weights past ears and extend arms.', feel: 'Tricep long head', cue: 'Pinned elbows', watch: 'Elbows drifting forward' },
+                    { name: 'Front Raise', sets: '2x12', rest: 30, action: 'Raise weights forward to eye level.', feel: 'Front delt', cue: 'Stay upright', watch: 'Leaning back' },
                     { name: 'Plyo Ball Slams', sets: '2x15', rest: 60, action: 'Slam med ball or weight into floor with max effort.', feel: 'Core and power', cue: 'Crunch into the slam', watch: 'Rounding back on pick-up' }
                 ]
             } },
             C: { label: "Bodyweight Master", warmup: ["Arm Circles", "Down Dog Pushup", "Scapular Slides", "Plank Rotations"], rounds: {
                 primary: [
-                    { name: 'Decline Pushups', sets: '4x12', rest: 60, feel: 'Chest and shoulders', cue: 'Stay in a line', watch: 'Sagging lower back' },
-                    { name: 'TRX Inverted Row', sets: '4x10', rest: 60, feel: 'Lats', cue: 'Squeeze shoulder blades', watch: 'Bent knees' }
+                    { name: 'Decline Pushups', sets: '4x12', rest: 60, action: 'Targeting upper pec with decline alignment.', feel: 'Chest and shoulders', cue: 'Stay in a line', watch: 'Sagging lower back' },
+                    { name: 'TRX Inverted Row', sets: '4x10', rest: 60, action: 'High intensity suspension rowing.', feel: 'Lats', cue: 'Squeeze shoulder blades', watch: 'Bent knees' }
                 ],
                 structure: [
-                    { name: 'Pike Pushups', sets: '3x10', rest: 60, feel: 'Shoulders', cue: 'Head forward of hands', watch: 'Elbows flaring' },
-                    { name: 'TRX Facepulls', sets: '3x15', rest: 45, feel: 'Rear delts/Upper back', cue: 'W-shape at top', watch: 'Hiking shoulders' },
-                    { name: 'Side Plank Rotations', sets: '3x12', rest: 30, feel: 'Obliques', cue: 'Reach through', watch: 'Hips dropping' }
+                    { name: 'Pike Pushups', sets: '3x10', rest: 60, action: 'Pushups with hips high in the air.', feel: 'Shoulders', cue: 'Head forward of hands', watch: 'Elbows flaring' },
+                    { name: 'TRX Facepulls', sets: '3x15', rest: 45, action: 'Pull handles to forehead with elbows high.', feel: 'Rear delts/Upper back', cue: 'W-shape at top', watch: 'Hiking shoulders' },
+                    { name: 'Side Plank Rotations', sets: '3x12', rest: 30, action: 'Rotate from side plank to reach under torso.', feel: 'Obliques', cue: 'Reach through', watch: 'Hips dropping' }
                 ],
                 integration: [
-                    { name: 'Plank Taps', sets: '2x20', rest: 30, feel: 'Stability', cue: 'Still hips', watch: 'Rocking side to side' },
-                    { name: 'Superman', sets: '2x15', rest: 30, feel: 'Lower back', cue: 'Stay long', watch: 'Jerking the neck' },
-                    { name: 'Tricep Dips', sets: '2x12', rest: 30, feel: 'Triceps', cue: 'Chest up', watch: 'Shoulders rolling forward' },
+                    { name: 'Plank Taps', sets: '2x20', rest: 30, action: 'Tap opposite shoulder in high plank.', feel: 'Stability', cue: 'Still hips', watch: 'Rocking side to side' },
+                    { name: 'Superman', sets: '2x15', rest: 30, action: 'Lift chest and legs off floor while prone.', feel: 'Lower back', cue: 'Stay long', watch: 'Jerking the neck' },
+                    { name: 'Tricep Dips', sets: '2x12', rest: 30, action: 'Dip on a bench or chair.', feel: 'Triceps', cue: 'Chest up', watch: 'Shoulders rolling forward' },
                     { name: 'Plyo Pushups', sets: '2xMAX', rest: 60, action: 'Explosive pushups to fatigue.', feel: 'Explosive chest', cue: 'Push through floor', watch: 'Hip sag' }
                 ]
             } }
@@ -344,15 +348,15 @@
                     { name: 'Box Jumps', sets: '4x5', rest: 60, action: 'Explode onto the box and land soft.', feel: 'Elastic power', cue: 'Land like a ninja', watch: 'Stiff landings' }
                 ],
                 structure: [
-                    { name: 'Romanian DL', sets: '3x10-12', rest: 120, feel: 'Hamstrings', cue: 'Push hips back', watch: 'Rounding the spine' },
-                    { name: 'Glute Bridge', sets: '3x15', rest: 60, feel: 'Glute pump', cue: 'Drive through heels', watch: 'Hyperextending back' },
-                    { name: 'Goblet Squat', sets: '3x12', rest: 60, feel: 'Quads', cue: 'Stay upright', watch: 'Hips rising too fast' }
+                    { name: 'Romanian DL', sets: '3x10-12', rest: 120, action: 'Targeted hamstring stretch and contraction.', feel: 'Hamstrings', cue: 'Push hips back', watch: 'Rounding the spine' },
+                    { name: 'Glute Bridge', sets: '3x15', rest: 60, action: 'Drive hips to ceiling from floor.', feel: 'Glute pump', cue: 'Drive through heels', watch: 'Hyperextending back' },
+                    { name: 'Goblet Squat', sets: '3x12', rest: 60, action: 'Hold weight at chest and squat deep.', feel: 'Quads', cue: 'Stay upright', watch: 'Hips rising too fast' }
                 ],
                 integration: [
-                    { name: 'Calf Raise', sets: '2x20', rest: 30, feel: 'Lower leg', cue: 'Big stretch', watch: 'Bouncing' },
+                    { name: 'Calf Raise', sets: '2x20', rest: 30, action: 'Raise onto toes on edge of step.', feel: 'Lower leg', cue: 'Big stretch', watch: 'Bouncing' },
                     { name: 'Split Jump Burner', sets: '2x10/side', rest: 60, action: 'Jump from lunge position switching legs in mid-air.', feel: 'Quads and power', cue: 'Stay vertical', watch: 'Front knee cave' },
-                    { name: 'Side Plank', sets: '2x30s', rest: 30, feel: 'Obliques', cue: 'Hips high', watch: 'Sagging' },
-                    { name: 'Bird-Dog', sets: '2x10', rest: 30, feel: 'Spinal stability', cue: 'Reach long', watch: 'Rotating hips' }
+                    { name: 'Side Plank', sets: '2x30s', rest: 30, action: 'Hold straight line on one forearm.', feel: 'Obliques', cue: 'Hips high', watch: 'Sagging' },
+                    { name: 'Bird-Dog', sets: '2x10', rest: 30, action: 'Opposite arm and leg reach.', feel: 'Spinal stability', cue: 'Reach long', watch: 'Rotating hips' }
                 ]
             } },
             B: { label: "Unilateral Stability", warmup: ["Leg Swings", "Cossack Squats", "Lunges", "Hip Switches"], rounds: {
@@ -361,40 +365,40 @@
                     { name: 'Broad Jumps', sets: '4x3', rest: 60, action: 'Explosive forward leap focusing on distance.', feel: 'Horizontal power', cue: 'Swing arms hard', watch: 'Hard landing' }
                 ],
                 structure: [
-                    { name: 'Bulgarian Split Squat', sets: '3x10/side', rest: 60, feel: 'Quads and glute med', cue: 'Lean forward slightly', watch: 'Knee tracking inward' },
-                    { name: 'Hamstring Bridge', sets: '3x15', rest: 60, feel: 'Hamstrings', cue: 'Drag heels in', watch: 'Low back taking over' },
-                    { name: 'Step Ups', sets: '3x10/side', rest: 60, feel: 'Glutes', cue: 'Drive through lead heel', watch: 'Pushing with back foot' }
+                    { name: 'Bulgarian Split Squat', sets: '3x10/side', rest: 60, action: 'Squat with one foot elevated behind you.', feel: 'Quads and glute med', cue: 'Lean forward slightly', watch: 'Knee tracking inward' },
+                    { name: 'Hamstring Bridge', sets: '3x15', rest: 60, action: 'Bridge with feet out further to target hams.', feel: 'Hamstrings', cue: 'Drag heels in', watch: 'Low back taking over' },
+                    { name: 'Step Ups', sets: '3x10/side', rest: 60, action: 'Step onto box with one leg.', feel: 'Glutes', cue: 'Drive through lead heel', watch: 'Pushing with back foot' }
                 ],
                 integration: [
-                    { name: 'Reverse Crunch', sets: '2x15', rest: 30, feel: 'Lower abs', cue: 'Exhale as you curl', watch: 'Swinging legs' },
-                    { name: 'Clamshells', sets: '2x15', rest: 30, feel: 'Glute med', cue: 'Hips stacked', watch: 'Rolling backward' },
+                    { name: 'Reverse Crunch', sets: '2x15', rest: 30, action: 'Curl hips toward chest from floor.', feel: 'Lower abs', cue: 'Exhale as you curl', watch: 'Swinging legs' },
+                    { name: 'Clamshells', sets: '2x15', rest: 30, action: 'Open knee while lying on side.', feel: 'Glute med', cue: 'Hips stacked', watch: 'Rolling backward' },
                     { name: 'Squat Jump Burner', sets: '2x15', rest: 60, action: 'Explosive bodyweight squat jumps.', feel: 'Elastic quads', cue: 'Quick transition', watch: 'Landing on heels' },
-                    { name: 'Russian Twist', sets: '2x20', rest: 30, feel: 'Obliques', cue: 'Move shoulders', watch: 'Arm only movement' }
+                    { name: 'Russian Twist', sets: '2x20', rest: 30, action: 'Rotate torso side to side seated.', feel: 'Obliques', cue: 'Move shoulders', watch: 'Arm only movement' }
                 ]
             } },
             C: { label: "Bodyweight Flow", warmup: ["Leg Swings", "90/90 Switches", "Cat-Cow", "Bird-Dog"], rounds: {
                 primary: [
-                    { name: 'Pistol Squat (Assisted)', sets: '4x8/side', rest: 60, feel: 'Single leg power', cue: 'Sit back deep', watch: 'Knee collapsing' },
-                    { name: 'Glute Bridges', sets: '4x20', rest: 60, feel: 'Glutes', cue: 'Hips to sky', watch: 'Rushing' }
+                    { name: 'Pistol Squat (Assisted)', sets: '4x8/side', rest: 60, action: 'One legged squat holding onto TRX or door.', feel: 'Single leg power', cue: 'Sit back deep', watch: 'Knee collapsing' },
+                    { name: 'Glute Bridges', sets: '4x20', rest: 60, action: 'BW bridge with extra squeeze.', feel: 'Glutes', cue: 'Hips to sky', watch: 'Rushing' }
                 ],
                 structure: [
-                    { name: 'Bulgarian Split Squat', sets: '3x12', rest: 60, feel: 'Quads', cue: 'Solid base', watch: 'Instability' },
-                    { name: 'Hamstring Bridge', sets: '3x15', rest: 60, feel: 'Hamstrings', cue: 'Dig heels in', watch: 'Back arch' },
-                    { name: 'Calf Raise', sets: '3x20', rest: 30, feel: 'Calves', cue: 'Full range', watch: 'Bouncing' }
+                    { name: 'Bulgarian Split Squat', sets: '3x12', rest: 60, action: 'One foot elevated behind you.', feel: 'Quads', cue: 'Solid base', watch: 'Instability' },
+                    { name: 'Hamstring Bridge', sets: '3x15', rest: 60, action: 'Extended foot position.', feel: 'Hamstrings', cue: 'Dig heels in', watch: 'Back arch' },
+                    { name: 'Calf Raise', sets: '3x20', rest: 30, action: 'Strict BW calf raises.', feel: 'Calves', cue: 'Full range', watch: 'Bouncing' }
                 ],
                 integration: [
                     { name: 'Split Jump Burner', sets: '2x10/side', rest: 60, action: 'Jump switches for max height.', feel: 'Explosive legs', cue: 'Stay light', watch: 'Hard landings' },
-                    { name: 'Reverse Crunches', sets: '2x15', rest: 30, feel: 'Lower abs', cue: 'Slow descent', watch: 'Leg swinging' },
-                    { name: 'Superman', sets: '2x15', rest: 30, feel: 'Postural', cue: 'Neck neutral', watch: 'Strain' },
-                    { name: 'Side Plank', sets: '2x30s', rest: 30, feel: 'Stability', cue: 'Lift hips', watch: 'Sagging' }
+                    { name: 'Reverse Crunches', sets: '2x15', rest: 30, action: 'Curl pelvis to ribs.', feel: 'Lower abs', cue: 'Slow descent', watch: 'Leg swinging' },
+                    { name: 'Superman', sets: '2x15', rest: 30, action: 'Lift and hold prone.', feel: 'Postural', cue: 'Neck neutral', watch: 'Strain' },
+                    { name: 'Side Plank', sets: '2x30s', rest: 30, action: 'One arm balance.', feel: 'Stability', cue: 'Lift hips', watch: 'Sagging' }
                 ]
             } }
         },
         move: {
-            A: { label: "Athletic Flow", prompt: "You are a fitness coach. Create a 45 min Flow session focusing on Mobility and Low Impact Cardio. USE ONLY HOME GYM EQUIPMENT. NO SPRINTS. 3 Rounds per block." },
-            B: { label: "High Intensity", prompt: "You are a fitness coach. Create a 45 min HIIT session focusing on Plyo and High Volume reps. USE ONLY HOME GYM EQUIPMENT. NO SPRINTS. 3 Rounds per block." },
-            C: { label: "Bodyweight Power", prompt: "You are a fitness coach. Create a 45 min explosive bodyweight power session. NO EQUIPMENT. 3 Rounds per block." },
-            D: { label: "Sore & Stiff (Recovery)", prompt: "You are a fitness coach. Create a 40 min session focusing on deep mobility and core activation. NO EQUIPMENT. 3 Rounds per block." }
+            A: { label: "Athletic Flow", prompt: "Create a 45 min Flow session focusing on Mobility and Low Impact Cardio. USE ONLY HOME GYM EQUIPMENT. NO SPRINTS." },
+            B: { label: "High Intensity", prompt: "Create a 45 min HIIT session focusing on Plyo and High Volume reps. USE ONLY HOME GYM EQUIPMENT. NO SPRINTS." },
+            C: { label: "Bodyweight Power", prompt: "Create a 45 min explosive bodyweight power session. NO EQUIPMENT." },
+            D: { label: "Sore & Stiff", prompt: "Create a 40 min session focusing on deep mobility and core activation. NO EQUIPMENT." }
         }
     };
 
@@ -403,29 +407,50 @@
     // --- HIGH-SPEED GEMINI LOGIC VIA STRUCTURED OUTPUTS ---
     const exSchema = { type: "OBJECT", properties: { name: {type: "STRING"}, sets: {type: "STRING"}, action: {type: "STRING"}, feel: {type: "STRING"}, cue: {type: "STRING"}, watch: {type: "STRING"} }, required: ["name", "sets", "action", "feel", "cue", "watch"] };
     const moveSchema = { type: "OBJECT", properties: { warmup: {type: "ARRAY", items: {type: "STRING"}}, primary: {type: "ARRAY", items: exSchema}, structure: {type: "ARRAY", items: exSchema}, integration: {type: "ARRAY", items: exSchema} }, required: ["warmup", "primary", "structure", "integration"] };
-    const hitSchema = { type: "ARRAY", items: exSchema };
+    const hitSchema = { type: "OBJECT", properties: { exercises: { type: "ARRAY", items: exSchema } }, required: ["exercises"] };
     const vaultSchema = { type: "OBJECT", properties: { forecast: {type: "STRING"} }, required: ["forecast"] };
 
-    async function askCoach(prompt, schema) {
-        const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
-        try {
-            const response = await fetch(url, { 
-                method: 'POST', 
-                headers: {'Content-Type': 'application/json'}, 
-                body: JSON.stringify({ 
-                    contents: [{parts: [{text: prompt}]}], 
-                    generationConfig: { 
-                        responseMimeType: "application/json",
-                        responseSchema: schema 
-                    }
-                }) 
-            });
-            if (!response.ok) return null;
-            const json = await response.json();
-            return json.candidates?.[0]?.content?.parts?.[0]?.text?.trim();
-        } catch(e) { 
-            return null; 
+    async function askCoach(prompt, schema, systemText) {
+        // Smart model switch: uses public model if you paste your key, otherwise uses preview model.
+        const model = apiKey ? "gemini-2.0-flash" : "gemini-2.5-flash-preview-09-2025";
+        const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
+        
+        const payload = { 
+            contents: [{parts: [{text: prompt}]}], 
+            generationConfig: { responseMimeType: "application/json", responseSchema: schema }
+        };
+        
+        if (systemText) {
+            payload.systemInstruction = { parts: [{ text: systemText }] };
         }
+
+        for(let i=0; i<=3; i++) {
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), 15000); 
+
+            try {
+                const response = await fetch(url, { 
+                    method: 'POST', 
+                    headers: {'Content-Type': 'application/json'}, 
+                    body: JSON.stringify(payload),
+                    signal: controller.signal
+                });
+                
+                clearTimeout(timeoutId);
+                if (!response.ok) {
+                    console.error("API Error:", await response.text());
+                    throw new Error('API Error');
+                }
+                
+                const json = await response.json();
+                return json.candidates?.[0]?.content?.parts?.[0]?.text?.trim();
+            } catch(e) { 
+                clearTimeout(timeoutId);
+                if (i === 3) break;
+                await new Promise(res => setTimeout(res, 2000)); 
+            }
+        }
+        return null;
     }
 
     async function runAi(mode) {
@@ -435,24 +460,28 @@
         
         let prompt = "";
         let schema = null;
+        let sys = "You are a fitness coach. Return exactly the requested JSON format.";
         
         if(mode === 'core') {
-            prompt = "Create a 5-6 minute core burner workout. Direct rep counts or holds for each move. Pure bodyweight. Provide 5 movements.";
+            prompt = "Create a 5-6 minute core burner workout. Direct rep counts or holds for each move. Pure bodyweight. Provide exactly 5 movements.";
             schema = hitSchema;
         } else if(mode === 'finish') {
-            prompt = "Create a 5-6 minute session challenge. Rep-based goals (e.g., '15 Mountain Climbers'). Provide 5 movements total.";
+            prompt = "Create a 5-6 minute session challenge. Rep-based goals (e.g., '15 Mountain Climbers'). Provide exactly 5 movements total.";
             schema = hitSchema;
         } else if(mode === 'vault') {
-            const logs = JSON.parse(localStorage.getItem('ff_logs_v21') || '[]');
+            const logs = JSON.parse(localStorage.getItem('ff_logs_v22') || '[]');
             if(logs.length < 1) { target.innerText = "Log a workout first."; return; }
-            prompt = `You are an expert Strength Coach. Analyze these logs and forecast specific progression targets for next week: ${JSON.stringify(logs.slice(0,10))}`;
+            sys = "Expert Strength Coach. Analyze performance trends.";
+            prompt = `Analyze these logs and predict next week's targets: ${JSON.stringify(logs.slice(0,10))}`;
             schema = vaultSchema;
         }
 
-        const res = await askCoach(prompt, schema);
+        const res = await askCoach(prompt, schema, sys);
+        
         if(res && mode !== 'vault') {
             try {
-                renderSimpleList(JSON.parse(res), target);
+                const data = JSON.parse(res);
+                renderSimpleList(data.exercises || data, target);
             } catch(e) { 
                 target.innerHTML = `<div class="exercise-card" style="text-align:center; color: #ff6b6b;">Render Error. Try again.</div>`; 
             }
@@ -464,7 +493,11 @@
                 target.innerHTML = `<div class="exercise-card" style="text-align:center; color: #ff6b6b;">Forecast Error. Try again.</div>`;
             }
         } else {
-            target.innerHTML = `<div class="exercise-card" style="text-align:center; color: #ff6b6b;">Coach is resting. Please try again.</div>`;
+            target.innerHTML = `
+                <div class="exercise-card" style="text-align:center;">
+                    <p style="color: #ff6b6b; margin-bottom:10px;">Coach Timed Out</p>
+                    <button onclick="runAi('${mode}')" class="v-pill active" style="border:none;">Try Again</button>
+                </div>`;
         }
     }
 
@@ -515,15 +548,17 @@
         
         if(appState.type === 'move') {
             area.innerHTML = "<div class='exercise-card' style='text-align:center'>Architecting Path<span class='loading'></span></div>";
-            const res = await askCoach(data.prompt, moveSchema);
+            const sys = "Expert fitness coach. Return a JSON object mapping to the exact schema requested. Every exercise needs action, feel, cue, watch.";
+            const res = await askCoach(data.prompt, moveSchema, sys);
+            
             if(res) {
                 try { 
                     renderJsonWorkout(JSON.parse(res), area, 3); 
                 } catch(e) { 
-                    area.innerHTML = "<div class='exercise-card' style='text-align:center; color: #ff6b6b;'>Parsing error. Try again.</div>"; 
+                    area.innerHTML = `<div class='exercise-card' style='text-align:center; color: #ff6b6b;'>Parsing error. <button onclick="renderWorkout()" class="v-pill active" style="margin-top:10px; border:none;">Retry</button></div>`; 
                 }
             } else {
-                area.innerHTML = `<div class="exercise-card" style="text-align:center; color: #ff6b6b;">Connection slow. Try again.</div>`;
+                area.innerHTML = `<div class="exercise-card" style="text-align:center;"><p style="color: #ff6b6b; margin-bottom:10px;">Connection Timeout</p><button onclick="renderWorkout()" class="v-pill active" style="border:none;">Try Again</button></div>`;
             }
             return;
         }
@@ -560,9 +595,10 @@
     }
 
     function renderSimpleList(exercises, container) {
+        const list = Array.isArray(exercises) ? exercises : (exercises.exercises || []);
         container.innerHTML = `
             <div class="section-header"><div class="section-name">5 Minute Rapid-Fire</div><div class="section-rounds">Single Flow</div></div>
-            ${exercises.map(ex => renderExCard(ex)).join('')}
+            ${list.map(ex => renderExCard(ex)).join('')}
         `;
         lucide.createIcons();
     }
@@ -625,14 +661,14 @@
         const row = btn.parentElement, w = row.querySelector('.w-in').value, r = row.querySelector('.r-in').value;
         if(!w || !r) return;
         const entry = { name, w, r, date: new Date().toLocaleDateString('en-US', {month:'short', day:'numeric'}), ts: Date.now() };
-        let logs = JSON.parse(localStorage.getItem('ff_logs_v21') || '[]'); logs.unshift(entry);
-        localStorage.setItem('ff_logs_v21', JSON.stringify(logs));
+        let logs = JSON.parse(localStorage.getItem('ff_logs_v22') || '[]'); logs.unshift(entry);
+        localStorage.setItem('ff_logs_v22', JSON.stringify(logs));
         btn.innerHTML = '✓'; btn.style.background = 'var(--good)';
         setTimeout(() => { btn.innerHTML = '+'; btn.style.background = 'var(--accent)'; row.querySelector('.w-in').value=''; row.querySelector('.r-in').value=''; }, 1500);
     }
 
     function renderHome() {
-        const logs = JSON.parse(localStorage.getItem('ff_logs_v21') || '[]');
+        const logs = JSON.parse(localStorage.getItem('ff_logs_v22') || '[]');
         const list = document.getElementById('home-weekly-list');
         const empty = document.getElementById('home-empty-msg');
         if(logs.length < 1) { list.innerHTML = ''; empty.style.display = 'block'; return; }
@@ -648,13 +684,13 @@
     }
 
     function renderVault() {
-        const logs = JSON.parse(localStorage.getItem('ff_logs_v21') || '[]');
+        const logs = JSON.parse(localStorage.getItem('ff_logs_v22') || '[]');
         const container = document.getElementById('vault-list');
         if(logs.length < 1) { container.innerHTML = '<p style="text-align:center; padding:40px; color:var(--muted)">Vault Empty.</p>'; return; }
         container.innerHTML = logs.slice(0, 40).map(l => `<div class="summary-item"><div><div style="color:var(--muted); font-size:10px;">${l.date}</div><div style="font-weight:700">${l.name}</div></div><div style="font-weight:900; color:var(--accent)">${l.w} x ${l.r}</div></div>`).join('');
     }
 
-    function clearAllData() { if(confirm("Wipe history?")) { localStorage.removeItem('ff_logs_v21'); renderVault(); renderHome(); } }
+    function clearAllData() { if(confirm("Wipe history?")) { localStorage.removeItem('ff_logs_v22'); renderVault(); renderHome(); } }
 
     window.onload = () => {
         lucide.createIcons();
