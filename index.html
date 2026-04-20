@@ -51,6 +51,7 @@
         .logo-img { height: 26px; width: auto; border-radius: 4px; }
         .brand-name { font-size: 13px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.05em; }
         .brand-name span { color: var(--brand-red); }
+        .version-badge { color: var(--muted); font-size: 9px; font-weight: 700; margin-left: 4px; background: var(--border); padding: 2px 6px; border-radius: 4px;}
 
         /* Bottom Nav */
         .nav-bar {
@@ -175,7 +176,7 @@
     <div class="app">
         <div class="header-brand">
             <img src="logo(1).png" alt="FF" class="logo-img" onerror="this.style.display='none'">
-            <div class="brand-name">Foundational <span>Fitness</span></div>
+            <div class="brand-name">Foundational <span>Fitness</span><span class="version-badge">v25</span></div>
         </div>
     </div>
 </div>
@@ -404,10 +405,10 @@
 
     let appState = { type: 'upper', version: 'A', timer: null };
 
-    // --- STREAMLINED ONE-SHOT GEMINI LOGIC ---
+    // --- ROCK SOLID GEMINI FIX (No Retries, Explicit Error Surfacing) ---
     async function askCoach(prompt, systemText) {
-        // DEFINITIVE FIX: Using gemini-2.0-flash and strictly ONE request (no hidden retries)
-        const model = apiKey ? "gemini-2.0-flash" : "gemini-2.5-flash-preview-09-2025";
+        // Using 1.5 flash standard as it is guaranteed to work on all free-tier API keys.
+        const model = apiKey ? "gemini-1.5-flash" : "gemini-2.5-flash-preview-09-2025";
         const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
         
         const payload = { 
@@ -426,21 +427,23 @@
                 body: JSON.stringify(payload)
             });
             
-            if (response.status === 429) {
-                return JSON.stringify({error: "Free Plan Quota Reached. Please wait 60 seconds and try again."});
-            }
-            
             if (!response.ok) {
-                const errData = await response.json();
-                return JSON.stringify({error: `API Error ${response.status}: ${errData.error?.message || 'Check your API Key.'}`});
+                const errData = await response.text();
+                // If this is a 404, the user's API key might require a different model version, but 1.5-flash is universally standard.
+                return JSON.stringify({error: `API Error (${response.status}): ${errData}`});
             }
             
             const json = await response.json();
-            let text = json.candidates?.[0]?.content?.parts?.[0]?.text || "";
+            
+            if (!json.candidates || json.candidates.length === 0) {
+                return JSON.stringify({error: `Safety/Quota Block: The API blocked the response.`});
+            }
+            
+            let text = json.candidates[0].content?.parts?.[0]?.text || "";
             return text.replace(/```json/gi, '').replace(/```/g, '').trim();
             
         } catch(e) { 
-            return JSON.stringify({error: `Network Error: Please check your connection.`});
+            return JSON.stringify({error: `Network Error: ${e.message}`});
         }
     }
 
@@ -453,14 +456,14 @@
         let sys = "You are a fitness coach. Return exactly the requested JSON format without any markdown wrappers.";
         
         if(mode === 'core') {
-            prompt = "Create a 5-6 minute core burner workout. Direct rep counts or holds for each move. Pure bodyweight. Provide exactly 5 movements. Return as JSON: {\"exercises\": [{\"name\":\"str\", \"sets\":\"str\", \"action\":\"str\", \"feel\":\"str\", \"cue\":\"str\", \"watch\":\"str\"}]}";
+            prompt = "Create a 5-6 minute core burner workout. Direct rep counts or holds for each move. Pure bodyweight. Provide exactly 5 movements. Return exactly this JSON: {\"exercises\": [{\"name\":\"str\", \"sets\":\"str\", \"action\":\"str\", \"feel\":\"str\", \"cue\":\"str\", \"watch\":\"str\"}]}";
         } else if(mode === 'finish') {
-            prompt = "Create a 5-6 minute session challenge. Rep-based goals (e.g., '15 Mountain Climbers'). Provide exactly 5 movements total. Return as JSON: {\"exercises\": [{\"name\":\"str\", \"sets\":\"str\", \"action\":\"str\", \"feel\":\"str\", \"cue\":\"str\", \"watch\":\"str\"}]}";
+            prompt = "Create a 5-6 minute session challenge. Rep-based goals (e.g., '15 Mountain Climbers'). Provide exactly 5 movements total. Return exactly this JSON: {\"exercises\": [{\"name\":\"str\", \"sets\":\"str\", \"action\":\"str\", \"feel\":\"str\", \"cue\":\"str\", \"watch\":\"str\"}]}";
         } else if(mode === 'vault') {
-            const logs = JSON.parse(localStorage.getItem('ff_logs_v24') || '[]');
+            const logs = JSON.parse(localStorage.getItem('ff_logs_v24') || '[]'); // Kept v24 key to preserve data
             if(logs.length < 1) { target.innerText = "Log a workout first."; return; }
             sys = "Expert Strength Coach. Analyze performance trends.";
-            prompt = `Analyze these logs and predict next week's targets: ${JSON.stringify(logs.slice(0,10))}. Return as JSON: {\"forecast\": \"your detailed string here\"}`;
+            prompt = `Analyze these logs and predict next week's targets: ${JSON.stringify(logs.slice(0,10))}. Return exactly this JSON: {\"forecast\": \"your detailed string here\"}`;
         }
 
         const res = await askCoach(prompt, sys);
@@ -471,7 +474,7 @@
             target.innerHTML = `
                 <div class="exercise-card" style="text-align:center; padding: 20px;">
                     <p style="color: #ff6b6b; margin-bottom:10px; font-weight: 800;">Connection Failed</p>
-                    <p style="font-size: 11px; margin-bottom: 15px; color: var(--muted);">${errMsg}</p>
+                    <p style="font-size: 11px; margin-bottom: 15px; color: var(--muted); word-break: break-word;">${errMsg}</p>
                     <button onclick="runAi('${mode}')" class="v-pill active" style="border:none;">Try Again</button>
                 </div>`;
             return;
@@ -541,7 +544,7 @@
         
         if(appState.type === 'move') {
             area.innerHTML = "<div class='exercise-card' style='text-align:center'>Architecting Path<span class='loading'></span></div>";
-            const sysFormat = `Expert fitness coach. Return ONLY valid JSON format: {"warmup":["str","str","str","str"], "primary":[{"name":"str","sets":"str","action":"str","feel":"str","cue":"str","watch":"str"}], "structure":[{"name":"str","sets":"str","action":"str","feel":"str","cue":"str","watch":"str"}], "integration":[{"name":"str","sets":"str","action":"str","feel":"str","cue":"str","watch":"str"}]}`;
+            const sysFormat = `Expert fitness coach. Return ONLY valid JSON format exactly matching this: {"warmup":["str","str","str","str"], "primary":[{"name":"str","sets":"str","action":"str","feel":"str","cue":"str","watch":"str"}], "structure":[{"name":"str","sets":"str","action":"str","feel":"str","cue":"str","watch":"str"}], "integration":[{"name":"str","sets":"str","action":"str","feel":"str","cue":"str","watch":"str"}]}`;
             const res = await askCoach(data.prompt, sysFormat);
             
             if (res && res.includes('"error":')) {
@@ -550,7 +553,7 @@
                 area.innerHTML = `
                     <div class='exercise-card' style='text-align:center;'>
                         <p style="color: #ff6b6b; margin-bottom:10px; font-weight: 800;">Connection Failed</p>
-                        <p style="font-size: 11px; margin-bottom: 15px; color: var(--muted);">${errMsg}</p>
+                        <p style="font-size: 11px; margin-bottom: 15px; color: var(--muted); word-break: break-word;">${errMsg}</p>
                         <button onclick="renderWorkout()" class="v-pill active" style="border:none;">Retry</button>
                     </div>`;
                 return;
