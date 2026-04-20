@@ -402,7 +402,7 @@
     let appState = { type: 'upper', version: 'A', timer: null };
 
     // --- Gemini Logic with Mandatory Retries & Backoff ---
-    async function askCoach(prompt, system = "You are an expert fitness coach. Your outputs must be valid JSON. Every exercise MUST include 'name', 'sets', 'action' (one sentence description), 'feel', 'cue', and 'watch' fields. Only return the JSON, no other text.") {
+    async function askCoach(prompt, system = "You are an expert fitness coach. Your outputs must be valid JSON matching the user request. Every exercise MUST include 'name', 'sets', 'action' (one sentence description), 'feel', 'cue', and 'watch' fields. Only return the raw JSON object, no conversational filler.") {
         const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
         const delays = [1000, 2000, 4000, 8000, 16000];
         
@@ -434,20 +434,20 @@
     async function runAi(mode) {
         const target = document.getElementById(`res-${mode}`);
         target.style.display = 'block';
-        target.innerHTML = `<div class="exercise-card" style="text-align:center">Consulting Coach<span class='loading'></span></div>`;
+        target.innerHTML = `<div class="exercise-card" style="text-align:center">Architecting Session<span class='loading'></span></div>`;
         
         let prompt = "";
-        let sys = "Return a JSON array of exercises: [{name, sets, action, feel, cue, watch}]. Every exercise needs these fields.";
+        let sys = "Return a JSON array of exercises: [{name, sets, action, feel, cue, watch}]. 'sets' should be specific like '15 Reps' or '30 Seconds'. The total workout should take 5-6 minutes including transitions. No warmups.";
         
         if(mode === 'core') {
-            prompt = "Create a 5-minute core burner workout. Flat list of exercises. No rounds, no warmups. Total time 5 mins.";
+            prompt = "Create a 5-6 minute core burner workout. Give specific rep counts (e.g., 15 reps, 10/side) or holds for each move. No 60s generic blocks. Pure bodyweight.";
         } else if(mode === 'finish') {
-            prompt = "Create a 5-minute high intensity finisher challenge. Flat list of exercises. No rounds, no warmups. Total time 5 mins.";
+            prompt = "Create a 5-6 minute high intensity finisher. Use rep-based goals like '20 Mountain Climbers' or '10 Jump Squats'. Ensure total volume takes 5-6 minutes.";
         } else if(mode === 'vault') {
-            const logs = JSON.parse(localStorage.getItem('ff_logs_v17') || '[]');
+            const logs = JSON.parse(localStorage.getItem('ff_logs_v18') || '[]');
             if(logs.length < 1) { target.innerText = "Log a workout first."; return; }
-            sys = "Expert Strength Coach. Give specific load targets based on performance trends.";
-            prompt = `Analyze these logs and predict next week's targets: ${JSON.stringify(logs.slice(0,10))}. Return text recommendations.`;
+            sys = "Expert Strength Coach. Analyze performance trends.";
+            prompt = `Analyze these logs and predict next week's targets: ${JSON.stringify(logs.slice(0,10))}. Return a JSON object with a single string 'forecast'.`;
         }
 
         try {
@@ -456,7 +456,8 @@
                 const data = JSON.parse(res);
                 renderSimpleList(data, target); 
             } else if (res) {
-                target.innerHTML = `<div style="background:rgba(255,255,255,0.05); padding:15px; border-radius:12px;">${res.replace(/\n/g, '<br>')}</div>`;
+                const parsed = JSON.parse(res);
+                target.innerHTML = `<div style="background:rgba(255,255,255,0.05); padding:15px; border-radius:12px;">${(parsed.forecast || res).replace(/\n/g, '<br>')}</div>`;
             } else {
                 target.innerHTML = `<div class="exercise-card" style="text-align:center; color: #ff6b6b;">Coach timed out. Try again.</div>`;
             }
@@ -513,7 +514,7 @@
         if(appState.type === 'move') {
             area.innerHTML = "<div class='exercise-card' style='text-align:center'>Architecting Path<span class='loading'></span></div>";
             try {
-                const res = await askCoach(data.prompt, "Expert fitness coach. Return a JSON object: {warmup:[4 items], primary:[2 items], structure:[2 items], integration:[2 items]}. Exercises need action, feel, cue, watch.");
+                const res = await askCoach(data.prompt, "Expert fitness coach. Return a JSON object: {warmup:[4 items], primary:[2 items], structure:[2 items], integration:[2 items]}. Every exercise needs action, feel, cue, watch.");
                 if(res) {
                     renderJsonWorkout(JSON.parse(res), area, 3); 
                 } else {
@@ -553,7 +554,7 @@
     function renderSimpleList(exercises, container) {
         const list = Array.isArray(exercises) ? exercises : (exercises.exercises || []);
         container.innerHTML = `
-            <div class="section-header"><div class="section-name">5 Minute Burner</div><div class="section-rounds">No Rounds</div></div>
+            <div class="section-header"><div class="section-name">5 Minute Rapid-Fire</div><div class="section-rounds">Single Cycle</div></div>
             ${list.map(ex => renderExCard(ex)).join('')}
         `;
         lucide.createIcons();
@@ -622,14 +623,14 @@
         const row = btn.parentElement, w = row.querySelector('.w-in').value, r = row.querySelector('.r-in').value;
         if(!w || !r) return;
         const entry = { name, w, r, date: new Date().toLocaleDateString('en-US', {month:'short', day:'numeric'}), ts: Date.now() };
-        let logs = JSON.parse(localStorage.getItem('ff_logs_v17') || '[]'); logs.unshift(entry);
-        localStorage.setItem('ff_logs_v17', JSON.stringify(logs));
+        let logs = JSON.parse(localStorage.getItem('ff_logs_v18') || '[]'); logs.unshift(entry);
+        localStorage.setItem('ff_logs_v18', JSON.stringify(logs));
         btn.innerHTML = '✓'; btn.style.background = 'var(--good)';
         setTimeout(() => { btn.innerHTML = '+'; btn.style.background = 'var(--accent)'; row.querySelector('.w-in').value=''; row.querySelector('.r-in').value=''; }, 1500);
     }
 
     function renderHome() {
-        const logs = JSON.parse(localStorage.getItem('ff_logs_v17') || '[]');
+        const logs = JSON.parse(localStorage.getItem('ff_logs_v18') || '[]');
         const list = document.getElementById('home-weekly-list');
         const empty = document.getElementById('home-empty-msg');
         if(logs.length < 1) { list.innerHTML = ''; empty.style.display = 'block'; return; }
@@ -645,13 +646,13 @@
     }
 
     function renderVault() {
-        const logs = JSON.parse(localStorage.getItem('ff_logs_v17') || '[]');
+        const logs = JSON.parse(localStorage.getItem('ff_logs_v18') || '[]');
         const container = document.getElementById('vault-list');
         if(logs.length < 1) { container.innerHTML = '<p style="text-align:center; padding:40px; color:var(--muted)">Vault Empty.</p>'; return; }
         container.innerHTML = logs.slice(0, 40).map(l => `<div class="summary-item"><div><div style="color:var(--muted); font-size:10px;">${l.date}</div><div style="font-weight:700">${l.name}</div></div><div style="font-weight:900; color:var(--accent)">${l.w} x ${l.r}</div></div>`).join('');
     }
 
-    function clearAllData() { if(confirm("Wipe history?")) { localStorage.removeItem('ff_logs_v17'); renderVault(); renderHome(); } }
+    function clearAllData() { if(confirm("Wipe history?")) { localStorage.removeItem('ff_logs_v18'); renderVault(); renderHome(); } }
 
     window.onload = () => {
         lucide.createIcons();
