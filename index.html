@@ -203,7 +203,7 @@
             <div class="logo-img" style="width:26px; display:flex; align-items:center; justify-content:center; color:#000;">
                 <i data-lucide="activity" style="width:16px; height:16px;"></i>
             </div>
-            <div class="brand-name">Foundational <span>Fitness</span><span class="version-badge">v31</span></div>
+            <div class="brand-name">Foundational <span>Fitness</span><span class="version-badge">v33</span></div>
         </div>
     </div>
 </div>
@@ -325,7 +325,7 @@
 </div>
 
 <script>
-    // --- 100% OFFLINE GENERATOR DATABASE (NO API KEY REQUIRED FOR CORE APP) ---
+    // --- 100% OFFLINE GENERATOR DATABASE FOR QUICK HITS ---
     const localDB = {
         core: [
             { name: "Hollow Body Hold", action: "Pin lower back to the floor and extend limbs.", feel: "Deep abdominals", cue: "Ribs to pelvis", watch: "Lower back arching" },
@@ -360,77 +360,10 @@
             { name: "Fast Feet", action: "Rapid, shallow steps in an athletic stance.", feel: "Calves and agility", cue: "Stay on balls of feet", watch: "Standing too tall" },
             { name: "180 Jump Squats", action: "Squat jump while turning 180 degrees.", feel: "Rotational power", cue: "Spot your landing", watch: "Dizzying/rushing" },
             { name: "Lateral Bounds", action: "Big sideways jumps landing on two feet.", feel: "Lateral explosiveness", cue: "Push off outside edge", watch: "Narrow jumps" }
-        ],
-        move_A: {
-            warmup: ["Cat-Cow Flow", "World's Greatest Stretch", "Arm Circles", "Glute Bridges"],
-            primary: [
-                { name: "Bodyweight Squats", action: "Controlled squats focusing on depth.", feel: "Quads and hips", cue: "Chest tall", watch: "Heels lifting" },
-                { name: "Plank to Down Dog", action: "Shift from plank pushing hips high.", feel: "Shoulders and hamstrings", cue: "Press floor away", watch: "Rounding upper back" },
-                { name: "Glute Bridges", action: "Drive hips to ceiling from floor.", feel: "Glute pump", cue: "Drive through heels", watch: "Hyperextending back" }
-            ],
-            structure: [
-                { name: "Alternating Reverse Lunges", action: "Step backward into a deep lunge.", feel: "Glutes and quads", cue: "Drive through front heel", watch: "Wobbly knee" },
-                { name: "Bear Crawls", action: "Crawl forward with knees hovering off floor.", feel: "Total body coordination", cue: "Keep back flat as a table", watch: "Hips too high" },
-                { name: "Bird-Dogs", action: "Opposite arm/leg reach from all fours.", feel: "Spinal stability", cue: "Reach long, not high", watch: "Arching lower back" }
-            ],
-            integration: [
-                { name: "Inchworms", action: "Walk hands out to plank, then feet to hands.", feel: "Hamstring stretch", cue: "Keep legs straight", watch: "Bending knees too much" },
-                { name: "Cossack Squats", action: "Deep lateral lunge keeping one leg straight.", feel: "Adductors and hips", cue: "Sit back on heel", watch: "Heel of bent leg lifting" }
-            ]
-        },
-        move_B: {
-            warmup: ["Jumping Jacks", "High Knees", "Arm Swings", "Bodyweight Squats"],
-            primary: [
-                { name: "Dumbbell Thrusters", action: "Squat and press dumbbells overhead.", feel: "Total body power", cue: "Use legs to drive the press", watch: "Pressing early" },
-                { name: "Burpees over Dumbbell", action: "Burpee, then lateral jump over weight.", feel: "Anaerobic capacity", cue: "Stay moving", watch: "Tripping on equipment" },
-                { name: "Kettlebell Swings", action: "Hinge and snap hips to swing weight.", feel: "Glutes and hamstrings", cue: "It's a hinge, not a squat", watch: "Using arms to lift" }
-            ],
-            structure: [
-                { name: "Renegade Rows", action: "Row DB while holding plank position.", feel: "Core and back", cue: "Resist rotation", watch: "Hips swiveling" },
-                { name: "Jump Lunges", action: "Explosive lunge switching legs in air.", feel: "Quad burn", cue: "Soft landings", watch: "Knee slamming floor" },
-                { name: "Dumbbell Snatches", action: "Explosively lift DB from floor to overhead.", feel: "Hips and shoulders", cue: "Zip the coat", watch: "Curling the weight" }
-            ],
-            integration: [
-                { name: "Goblet Squats (Speed)", action: "Fast, unbroken goblet squats.", feel: "Quads", cue: "Piston-like speed", watch: "Losing depth" },
-                { name: "Mountain Climbers", action: "Rapid knee drives in plank.", feel: "Core and cardio", cue: "Shoulders over wrists", watch: "Hips rising" }
-            ]
-        },
-        move_C: {
-            warmup: ["Leg Swings", "Scapular Pushups", "Pogo Jumps", "Hip Halos"],
-            primary: [
-                { name: "Plyo Pushups", action: "Explosive pushup, hands leave floor.", feel: "Chest power", cue: "Snap the floor away", watch: "Landing with stiff elbows" },
-                { name: "Broad Jumps", action: "Max distance horizontal leaps.", feel: "Glute power", cue: "Stick the landing", watch: "Falling forward" },
-                { name: "Squat Jumps", action: "Jump vertically from a deep squat.", feel: "Quad power", cue: "Explode up", watch: "Landing on heels" }
-            ],
-            structure: [
-                { name: "Pistol Squats (Assisted)", action: "Single leg squat.", feel: "Unilateral strength", cue: "Control the descent", watch: "Crashing to the bottom" },
-                { name: "Tuck Jumps", action: "Jump bringing knees to chest.", feel: "Elastic power", cue: "Quick ground reaction", watch: "Double bouncing" },
-                { name: "Pike Pushups", action: "Vertical pushup from downward dog.", feel: "Shoulder strength", cue: "Head forward of hands", watch: "Elbows flaring wide" }
-            ],
-            integration: [
-                { name: "Skater Jumps", action: "Lateral bounding.", feel: "Lateral power", cue: "Absorb and explode", watch: "Stiff landings" },
-                { name: "V-Ups", action: "Explosive core fold.", feel: "Abs", cue: "Snap to the middle", watch: "Bent knees" }
-            ]
-        },
-        move_D: {
-            warmup: ["Neck Circles", "Wrist Rolls", "Ankle Rolls", "Deep Breathing"],
-            primary: [
-                { name: "90/90 Hip Switches", action: "Rotate hips while seated on floor.", feel: "Hip joint mobility", cue: "Stay tall", watch: "Slumping backward" },
-                { name: "Thread the Needle", action: "Reach arm under torso from all fours.", feel: "Thoracic spine", cue: "Breathe into the stretch", watch: "Forcing the twist" },
-                { name: "Downward Dog Hold", action: "Press hips up and back into an inverted V.", feel: "Calves and hamstrings", cue: "Drive heels down", watch: "Shoulders shrugging" }
-            ],
-            structure: [
-                { name: "Pigeon Pose", action: "Fold over front bent leg.", feel: "Glutes and hips", cue: "Square hips to floor", watch: "Rolling to one side" },
-                { name: "Couch Stretch", action: "Kneeling quad stretch against wall.", feel: "Quads and hip flexors", cue: "Squeeze glute of stretched leg", watch: "Arching lower back" },
-                { name: "Child's Pose", action: "Sit hips back to heels, arms forward.", feel: "Lats and low back", cue: "Relax completely", watch: "Holding tension" }
-            ],
-            integration: [
-                { name: "Supine Spinal Twist", action: "Lay on back, cross one knee over body.", feel: "Lower back release", cue: "Keep opposite shoulder down", watch: "Forcing knee to floor" },
-                { name: "Cat-Cow", action: "Flex and extend spine slowly.", feel: "Spinal articulation", cue: "Move vertebra by vertebra", watch: "Rushing the movement" }
-            ]
-        }
+        ]
     };
 
+    // --- FULLY DETAILED, STATIC MASTER LIBRARY ---
     const library = {
         upper: {
             A: { label: "Strength Focus", warmup: ["Arm Circles", "Band Pull-Aparts", "TRX Face Pulls", "Scapular Shrugs"], rounds: { 
@@ -539,10 +472,66 @@
             } }
         },
         move: {
-            A: { label: "Athletic Flow", generatorKey: "move_A" },
-            B: { label: "High Intensity", generatorKey: "move_B" },
-            C: { label: "Bodyweight Power", generatorKey: "move_C" },
-            D: { label: "Sore & Stiff", generatorKey: "move_D" }
+            A: { label: "Athletic Flow", warmup: ["Cat-Cow Flow", "World's Greatest Stretch", "Arm Circles", "Glute Bridges"], rounds: {
+                primary: [
+                    { name: 'DB Goblet Squat', sets: '3x12', rest: 90, action: 'Smooth controlled descent focusing on depth and mobility.', feel: 'Quads and hips', cue: 'Chest proud, sit between heels', watch: 'Heels lifting off floor' },
+                    { name: 'Plank to Down Dog', sets: '3x10', rest: 60, action: 'Shift from a strong plank into an inverted V, pressing chest to knees.', feel: 'Shoulders and hamstrings', cue: 'Press floor away', watch: 'Rounding upper back' }
+                ],
+                structure: [
+                    { name: 'Alternating Reverse Lunges', sets: '3x10/side', rest: 60, action: 'Step backward into a deep lunge, kissing knee to floor.', feel: 'Glutes and quads', cue: 'Drive through front heel', watch: 'Wobbly front knee' },
+                    { name: 'Renegade Rows', sets: '3x8/side', rest: 60, action: 'Row dumbbell to hip while holding a strict plank.', feel: 'Core and lats', cue: 'Resist rotation', watch: 'Hips swiveling' },
+                    { name: 'Bear Crawls', sets: '3x30s', rest: 60, action: 'Crawl forward and backward with knees hovering 1 inch off floor.', feel: 'Total body coordination', cue: 'Flat back like a table', watch: 'Hips rising too high' }
+                ],
+                integration: [
+                    { name: 'Cossack Squats', sets: '2x8/side', rest: 45, action: 'Deep lateral lunge keeping the opposite leg completely straight.', feel: 'Adductors and hip mobility', cue: 'Sit back on the heel', watch: 'Heel of bent leg lifting' },
+                    { name: 'Inchworms', sets: '2x5', rest: 45, action: 'Walk hands out to plank, then tiptoe feet back to hands.', feel: 'Hamstring stretch', cue: 'Keep legs straight', watch: 'Bending knees too much' }
+                ]
+            } },
+            B: { label: "High Intensity", warmup: ["Jumping Jacks", "High Knees", "Arm Swings", "Bodyweight Squats"], rounds: {
+                primary: [
+                    { name: 'Dumbbell Thrusters', sets: '4x12', rest: 90, action: 'Front squat exploding directly into an overhead press.', feel: 'Total body power', cue: 'Use legs to drive the press', watch: 'Pressing too early' },
+                    { name: 'Burpees over DB', sets: '4x10', rest: 90, action: 'Chest-to-floor burpee, then leap laterally over the dumbbell.', feel: 'Anaerobic capacity', cue: 'Pace your breathing', watch: 'Tripping on equipment' }
+                ],
+                structure: [
+                    { name: 'Jump Lunges', sets: '3x12/side', rest: 60, action: 'Explosive lunge, switching legs mid-air.', feel: 'Quad burn and elasticity', cue: 'Soft landings', watch: 'Kneecap slamming the floor' },
+                    { name: 'Dumbbell Snatches', sets: '3x10/side', rest: 60, action: 'Explosively lift DB from floor straight to overhead in one motion.', feel: 'Hips and shoulders', cue: 'Zip the coat', watch: 'Curling the weight' },
+                    { name: 'Push-up to Plank Jack', sets: '3x15', rest: 60, action: 'Perform one pushup, then jump feet wide and back together.', feel: 'Chest and core', cue: 'Solid core throughout', watch: 'Hips sagging on pushup' }
+                ],
+                integration: [
+                    { name: 'Mountain Climbers', sets: '2x45s', rest: 45, action: 'Rapid knee drives to chest from a high plank.', feel: 'Core and cardio', cue: 'Shoulders over wrists', watch: "Hips bouncing up" },
+                    { name: 'Goblet Squat (Speed)', sets: '2x15', rest: 45, action: 'Fast, unbroken goblet squats focusing on turnover rate.', feel: 'Quads', cue: 'Piston-like speed', watch: 'Losing depth' }
+                ]
+            } },
+            C: { label: "Bodyweight Power", warmup: ["Leg Swings", "Scapular Pushups", "Pogo Jumps", "Hip Halos"], rounds: {
+                primary: [
+                    { name: 'Plyo Pushups', sets: '4x8', rest: 90, action: 'Explosive pushup where hands completely leave the floor.', feel: 'Chest power', cue: 'Snap the floor away', watch: 'Landing with stiff elbows' },
+                    { name: 'Broad Jumps', sets: '4x5', rest: 90, action: 'Maximal distance horizontal leap from a standstill.', feel: 'Glute power', cue: 'Stick the landing', watch: 'Falling forward on landing' }
+                ],
+                structure: [
+                    { name: 'Pistol Squats (Assisted)', sets: '3x6/side', rest: 60, action: 'Single leg squat using a doorframe or TRX for light support.', feel: 'Unilateral strength', cue: 'Control the descent', watch: 'Crashing to the bottom' },
+                    { name: 'Tuck Jumps', sets: '3x8', rest: 60, action: 'Max height vertical jump, bringing knees high to chest.', feel: 'Elastic power', cue: 'Quick ground reaction', watch: 'Double bouncing on floor' },
+                    { name: 'Pike Pushups', sets: '3x10', rest: 60, action: 'Vertical pushup from a downward dog position.', feel: 'Shoulder strength', cue: 'Head forward of hands', watch: 'Elbows flaring wide' }
+                ],
+                integration: [
+                    { name: 'Skater Jumps', sets: '2x10/side', rest: 45, action: 'Huge lateral bounds from one leg to the other.', feel: 'Lateral power', cue: 'Absorb and explode', watch: 'Stiff landings' },
+                    { name: 'V-Ups', sets: '2x15', rest: 45, action: 'Explosive core fold bringing hands to toes over the hips.', feel: 'Abs', cue: 'Snap to the middle', watch: 'Bending the knees' }
+                ]
+            } },
+            D: { label: "Sore & Stiff", warmup: ["Neck Circles", "Wrist Rolls", "Ankle Rolls", "Deep Breathing"], rounds: {
+                primary: [
+                    { name: '90/90 Hip Switches', sets: '3x10', rest: 60, action: 'Rotate hips side to side while seated on the floor.', feel: 'Hip joint mobility', cue: 'Stay tall in the torso', watch: 'Slumping backward' },
+                    { name: 'Thread the Needle', sets: '3x8/side', rest: 60, action: 'Reach arm under torso from all fours, rotating the spine.', feel: 'Thoracic spine', cue: 'Breathe into the stretch', watch: 'Forcing the twist' }
+                ],
+                structure: [
+                    { name: 'Pigeon Pose', sets: '3x60s/side', rest: 30, action: 'Fold torso over front bent leg on the floor.', feel: 'Deep glute stretch', cue: 'Square hips to floor', watch: 'Rolling onto one cheek' },
+                    { name: 'Couch Stretch', sets: '3x60s/side', rest: 30, action: 'Kneeling quad stretch with back foot against a wall/couch.', feel: 'Quads and hip flexors', cue: 'Squeeze glute of stretched leg', watch: 'Arching lower back' },
+                    { name: 'Child\'s Pose', sets: '3x60s', rest: 30, action: 'Sit hips back to heels, arms stretched far forward.', feel: 'Lats and low back release', cue: 'Relax completely', watch: 'Holding tension in neck' }
+                ],
+                integration: [
+                    { name: 'Supine Spinal Twist', sets: '2x60s/side', rest: 30, action: 'Lay on back, cross one knee heavily over the body.', feel: 'Lower back release', cue: 'Keep opposite shoulder pinned to floor', watch: 'Forcing the knee to the floor' },
+                    { name: 'Cat-Cow', sets: '2x15', rest: 30, action: 'Flex and extend spine slowly from a quadruped position.', feel: 'Spinal articulation', cue: 'Move vertebra by vertebra', watch: 'Rushing the movement' }
+                ]
+            } }
         }
     };
 
@@ -552,7 +541,6 @@
     const apiKey = ""; 
 
     async function askCoach(prompt, systemText) {
-        // Uses the correct Gemini 2.0 Flash model for your API key
         const model = apiKey ? "gemini-2.0-flash" : "gemini-2.5-flash-preview-09-2025";
         const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
         
@@ -639,7 +627,7 @@
         }
     }
 
-    // --- SMART PROCEDURAL GENERATOR (100% LOCAL FOR CORE TABS) ---
+    // --- SMART PROCEDURAL GENERATOR (100% LOCAL FOR QUICK HITS) ---
     function getRandomItems(arr, count) {
         const shuffled = [...arr].sort(() => 0.5 - Math.random());
         return shuffled.slice(0, count);
@@ -692,22 +680,7 @@
         const area = document.getElementById('workout-render-area');
         const data = library[appState.type][appState.version];
         
-        if(appState.type === 'move') {
-            area.innerHTML = "<div class='exercise-card' style='text-align:center'>Architecting Path<span class='loading'></span></div>";
-            await new Promise(r => setTimeout(r, 500));
-            
-            const pool = localDB[data.generatorKey];
-            const generatedWorkout = {
-                warmup: pool.warmup,
-                primary: getRandomItems(pool.primary, 2).map(ex => ({...ex, sets: '3x10-15'})),
-                structure: getRandomItems(pool.structure, 2).map(ex => ({...ex, sets: '3x12'})),
-                integration: getRandomItems(pool.integration, 2).map(ex => ({...ex, sets: '2x15'})),
-            };
-            
-            renderJsonWorkout(generatedWorkout, area, 3); 
-            return;
-        }
-
+        // All workouts (upper, lower, and move) now render identically through the handcrafted library
         renderJsonWorkout(data.rounds ? data.rounds : data, area, null, data.warmup);
         
         const finBtn = document.createElement('button');
@@ -807,7 +780,7 @@
         return `
             <div class="exercise-card">
                 <div class="exercise-title"><div>${name}</div><div class="check-box" onclick="toggleCheck(this)"></div></div>
-                <div class="exercise-meta">${sets} • <span class="rest-badge" onclick="startTimer(60)">Rest</span></div>
+                <div class="exercise-meta">${sets} • <span class="rest-badge" onclick="startTimer(ex.rest || 60)">Rest</span></div>
                 <div class="action-desc">${action}</div>
                 <div class="protocol-grid">
                     <div class="p-row"><span class="p-label">FEEL:</span><span class="p-val">${feel}</span></div>
@@ -854,15 +827,14 @@
         const row = btn.parentElement, w = row.querySelector('.w-in').value, r = row.querySelector('.r-in').value;
         if(!w || !r) return;
         const entry = { name, w, r, date: new Date().toLocaleDateString('en-US', {month:'short', day:'numeric'}), ts: Date.now() };
-        // Changed log key to v31 to refresh data handling internally if needed, but retaining backwards compatibility by grabbing previous key if available would be complex. Starting fresh for cleanliness.
-        let logs = JSON.parse(localStorage.getItem('ff_logs_v31') || '[]'); logs.unshift(entry);
-        localStorage.setItem('ff_logs_v31', JSON.stringify(logs));
+        let logs = JSON.parse(localStorage.getItem('ff_logs_v33') || '[]'); logs.unshift(entry);
+        localStorage.setItem('ff_logs_v33', JSON.stringify(logs));
         btn.innerHTML = '✓'; btn.style.background = 'var(--good)';
         setTimeout(() => { btn.innerHTML = '+'; btn.style.background = 'var(--accent)'; row.querySelector('.w-in').value=''; row.querySelector('.r-in').value=''; }, 1500);
     }
 
     function renderHome() {
-        const logs = JSON.parse(localStorage.getItem('ff_logs_v31') || '[]');
+        const logs = JSON.parse(localStorage.getItem('ff_logs_v33') || '[]');
         const list = document.getElementById('home-weekly-list');
         const empty = document.getElementById('home-empty-msg');
         if(logs.length < 1) { list.innerHTML = ''; empty.style.display = 'block'; return; }
@@ -878,13 +850,13 @@
     }
 
     function renderVault() {
-        const logs = JSON.parse(localStorage.getItem('ff_logs_v31') || '[]');
+        const logs = JSON.parse(localStorage.getItem('ff_logs_v33') || '[]');
         const container = document.getElementById('vault-list');
         if(logs.length < 1) { container.innerHTML = '<p style="text-align:center; padding:40px; color:var(--muted)">Vault Empty.</p>'; return; }
         container.innerHTML = logs.slice(0, 40).map(l => `<div class="summary-item"><div><div style="color:var(--muted); font-size:10px;">${l.date}</div><div style="font-weight:700">${l.name}</div></div><div style="font-weight:900; color:var(--accent)">${l.w} x ${l.r}</div></div>`).join('');
     }
 
-    function clearAllData() { if(confirm("Wipe history?")) { localStorage.removeItem('ff_logs_v31'); renderVault(); renderHome(); } }
+    function clearAllData() { if(confirm("Wipe history?")) { localStorage.removeItem('ff_logs_v33'); renderVault(); renderHome(); } }
 
     window.onload = () => {
         lucide.createIcons();
