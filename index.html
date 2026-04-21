@@ -22,6 +22,8 @@
             --border: #242831;
             --input: #0e1014;
             --good: #4ade80;
+            --ai-glow: rgba(125, 211, 252, 0.15);
+            --ai-accent: #a78bfa;
         }
 
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
@@ -47,7 +49,7 @@
             padding-top: env(safe-area-inset-top);
         }
         .header-brand { display: flex; align-items: center; gap: 8px; }
-        .logo-img { height: 26px; width: auto; border-radius: 4px; }
+        .logo-img { height: 26px; width: auto; border-radius: 4px; background: var(--accent); }
         .brand-name { font-size: 13px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.05em; }
         .brand-name span { color: var(--brand-red); }
         .version-badge { color: var(--muted); font-size: 9px; font-weight: 700; margin-left: 4px; background: var(--border); padding: 2px 6px; border-radius: 4px;}
@@ -58,7 +60,7 @@
             background: rgba(21, 23, 28, 0.96);
             backdrop-filter: blur(15px);
             border-top: 1px solid var(--border);
-            display: grid; grid-template-columns: repeat(4, 1fr);
+            display: grid; grid-template-columns: repeat(5, 1fr);
             padding-bottom: env(safe-area-inset-bottom);
             z-index: 100;
         }
@@ -69,6 +71,7 @@
         .nav-item i { width: 18px; height: 18px; margin-bottom: 4px; }
         .nav-item span { font-size: 8px; font-weight: 700; text-transform: uppercase; }
         .nav-item.active { color: var(--accent); }
+        .nav-item.active-ai { color: var(--ai-accent); }
 
         /* Panels */
         .panel { display: none; padding-top: 16px; animation: fadeIn 0.2s ease-out; }
@@ -101,9 +104,10 @@
             display: flex; background: var(--input); border-radius: 10px; padding: 3px; margin-bottom: 12px; border: 1px solid var(--border);
         }
         .t-btn {
-            flex: 1; text-align: center; padding: 8px; font-size: 9px; font-weight: 900; text-transform: uppercase; color: var(--muted); cursor: pointer; border-radius: 8px;
+            flex: 1; text-align: center; padding: 8px; font-size: 9px; font-weight: 900; text-transform: uppercase; color: var(--muted); cursor: pointer; border-radius: 8px; transition: 0.2s;
         }
         .t-btn.active { background: var(--accent); color: #000; }
+        .t-btn.active-ai { background: var(--ai-accent); color: #000; }
 
         .version-row { display: flex; gap: 6px; margin-bottom: 14px; overflow-x: auto; padding-bottom: 4px; -webkit-overflow-scrolling: touch; }
         .version-row::-webkit-scrollbar { display: none; }
@@ -136,6 +140,22 @@
             text-transform: uppercase; letter-spacing: 0.08em; cursor: pointer;
             display: flex; align-items: center; justify-content: center; gap: 8px;
             box-shadow: 0 0 15px rgba(125, 211, 252, 0.1);
+            margin-top: 10px;
+        }
+
+        .ai-magic-btn {
+            background: linear-gradient(135deg, #2e1065, #170f2e); 
+            border: 1px solid var(--ai-accent); color: var(--ai-accent);
+            width: 100%; padding: 16px; border-radius: 14px; font-weight: 900; font-size: 11px;
+            text-transform: uppercase; letter-spacing: 0.08em; cursor: pointer;
+            display: flex; align-items: center; justify-content: center; gap: 8px;
+            box-shadow: 0 0 15px rgba(167, 139, 250, 0.15);
+            margin-top: 10px;
+        }
+
+        .text-input {
+            width: 100%; background: var(--input); color: var(--text); border: 1px solid var(--border); 
+            border-radius: 12px; padding: 14px; font-size: 14px; font-weight: 500; margin-bottom: 10px;
         }
 
         .check-box { width: 20px; height: 20px; border: 2px solid var(--border); border-radius: 5px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
@@ -159,6 +179,12 @@
             display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 10px;
         }
 
+        .ai-result-box {
+            background: rgba(255,255,255,0.03); padding: 16px; border-radius: 14px; 
+            font-size: 13px; line-height: 1.6; display: none; border: 1px solid rgba(167, 139, 250, 0.2);
+            color: #e2e8f0; margin-top: 15px;
+        }
+
         .loading:after { content: ' .'; animation: dots 1s steps(5, end) infinite; }
         @keyframes dots { 0%, 20% { content: ' .'; } 40% { content: ' ..'; } 60% { content: ' ...'; } 80%, 100% { content: ''; } }
     </style>
@@ -174,8 +200,10 @@
 <div class="header">
     <div class="app">
         <div class="header-brand">
-            <img src="logo(1).png" alt="FF" class="logo-img" onerror="this.style.display='none'">
-            <div class="brand-name">Foundational <span>Fitness</span><span class="version-badge">v30</span></div>
+            <div class="logo-img" style="width:26px; display:flex; align-items:center; justify-content:center; color:#000;">
+                <i data-lucide="activity" style="width:16px; height:16px;"></i>
+            </div>
+            <div class="brand-name">Foundational <span>Fitness</span><span class="version-badge">v31</span></div>
         </div>
     </div>
 </div>
@@ -229,7 +257,7 @@
     <!-- QUICK HITS PANEL -->
     <div id="panel-hits" class="panel">
         <h2>Quick Hits</h2>
-        <p class="welcome-sub">Adaptive 5-minute intensity blocks.</p>
+        <p class="welcome-sub">Offline, 5-minute intensity blocks.</p>
 
         <div class="train-toggle">
             <div class="t-btn active" id="hit-tab-core" onclick="switchHitTab('core')">Core</div>
@@ -254,13 +282,25 @@
     <!-- VAULT PANEL -->
     <div id="panel-vault" class="panel">
         <h2>Vault</h2>
-        <p class="welcome-sub">Review history and plan progression.</p>
-        <button class="ai-action-btn" onclick="runGenerator('vault')">
-            <i data-lucide="trending-up"></i> Analyze Progress
-        </button>
-        <div id="res-vault" style="margin-top:15px; background:rgba(255,255,255,0.02); padding:15px; border-radius:12px; font-size:12px; line-height:1.5; display:none;"></div>
+        <p class="welcome-sub">Review history and training volume.</p>
         <div id="vault-list" style="margin-top:20px;"></div>
         <button onclick="clearAllData()" style="width:100%; padding:15px; margin-top:30px; background:transparent; border:1px solid #991b1b; color:#ef4444; border-radius:12px; font-weight:700; font-size:10px;">Wipe History</button>
+    </div>
+
+    <!-- AI COACH PANEL -->
+    <div id="panel-coach" class="panel">
+        <h2>AI Coach <i data-lucide="sparkles" style="color:var(--ai-accent); width:24px; height:24px; vertical-align:middle; display:inline-block;"></i></h2>
+        <p class="welcome-sub" style="color:var(--ai-accent);">Powered by Gemini AI.</p>
+
+        <div id="coach-content-form">
+            <p style="font-size:11px; color:var(--muted); margin-bottom:10px;">Describe the exercise you're doing and what you're feeling. The coach will troubleshoot your form.</p>
+            <textarea id="ai-form-input" class="text-input" rows="4" placeholder="E.g., I'm doing Romanian Deadlifts but I mostly feel it in my lower back instead of my hamstrings..."></textarea>
+            <button class="ai-magic-btn" onclick="analyzeFormAi()">
+                <i data-lucide="activity"></i> Troubleshoot Form ✨
+            </button>
+            <div id="res-ai-form" class="ai-result-box"></div>
+        </div>
+
     </div>
 
 </div>
@@ -279,11 +319,13 @@
     <div class="nav-item" onclick="showPanel('panel-vault', this)">
         <i data-lucide="archive"></i><span>Vault</span>
     </div>
+    <div class="nav-item" onclick="showPanel('panel-coach', this)">
+        <i data-lucide="sparkles" style="color:var(--ai-accent);"></i><span style="color:var(--ai-accent);">Coach</span>
+    </div>
 </div>
 
 <script>
-    // --- 100% OFFLINE GENERATOR DATABASE (NO API KEY REQUIRED) ---
-    // Massive built-in library for endless combinations instantly.
+    // --- 100% OFFLINE GENERATOR DATABASE (NO API KEY REQUIRED FOR CORE APP) ---
     const localDB = {
         core: [
             { name: "Hollow Body Hold", action: "Pin lower back to the floor and extend limbs.", feel: "Deep abdominals", cue: "Ribs to pelvis", watch: "Lower back arching" },
@@ -506,7 +548,98 @@
 
     let appState = { type: 'upper', version: 'A', timer: null };
 
-    // --- SMART PROCEDURAL GENERATOR (100% LOCAL) ---
+    // --- GEMINI API INTEGRATION ✨ ---
+    const apiKey = ""; 
+
+    async function askCoach(prompt, systemText) {
+        // Uses the correct Gemini 2.0 Flash model for your API key
+        const model = apiKey ? "gemini-2.0-flash" : "gemini-2.5-flash-preview-09-2025";
+        const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
+        
+        const payload = { 
+            contents: [{parts: [{text: prompt}]}], 
+            generationConfig: { responseMimeType: "application/json" }
+        };
+        
+        if (systemText) {
+            payload.systemInstruction = { parts: [{ text: systemText }] };
+        }
+
+        try {
+            const response = await fetch(url, { 
+                method: 'POST', 
+                headers: {'Content-Type': 'application/json'}, 
+                body: JSON.stringify(payload)
+            });
+            
+            if (!response.ok) {
+                const errData = await response.text();
+                return JSON.stringify({error: `API Error (${response.status}): ${errData}`});
+            }
+            
+            const json = await response.json();
+            
+            if (!json.candidates || json.candidates.length === 0) {
+                return JSON.stringify({error: `Safety/Quota Block: The API blocked the response.`});
+            }
+            
+            let text = json.candidates[0].content?.parts?.[0]?.text || "";
+            return text.replace(/```json/gi, '').replace(/```/g, '').trim();
+            
+        } catch(e) { 
+            return JSON.stringify({error: `Network Error: ${e.message}`});
+        }
+    }
+
+    async function analyzeFormAi() {
+        const input = document.getElementById('ai-form-input').value;
+        const target = document.getElementById('res-ai-form');
+        
+        if (!input) {
+            target.style.display = 'block';
+            target.innerHTML = `<span style="color:#ff6b6b;">Please describe the exercise and what you're feeling!</span>`;
+            return;
+        }
+        
+        target.style.display = 'block';
+        target.innerHTML = "Analyzing movement...<span class='loading'></span>";
+
+        const prompt = `A user is troubleshooting an exercise form issue. User input: "${input}". 
+        Provide a concise, 3-paragraph response:
+        1. Identify the likely biomechanical cause of what they are feeling.
+        2. Give 2 specific, actionable coaching cues to fix it.
+        3. Explain what they *should* be feeling when done correctly.
+        Return exactly this JSON format: {"feedback": "your detailed string here with no markdown asterisks"}`;
+
+        const sys = "You are an elite biomechanics and fitness coach.";
+
+        const res = await askCoach(prompt, sys);
+        
+        if (res && res.includes('"error":')) {
+            let errMsg = "Connection failed.";
+            try { errMsg = JSON.parse(res).error; } catch(e) {}
+            target.innerHTML = `
+                <div style="text-align:center;">
+                    <span style="color:#ff6b6b; font-weight:bold;">Connection Failed</span><br>
+                    <span style="color:var(--muted); font-size:11px;">${errMsg}</span>
+                </div>
+            `;
+            return;
+        }
+
+        if(res) {
+            try {
+                const parsed = JSON.parse(res);
+                target.innerHTML = (parsed.feedback || res).replace(/\n/g, '<br><br>');
+            } catch(e) {
+                target.innerHTML = `<span style="color:#ff6b6b;">Parsing Error. Try again.</span>`;
+            }
+        } else {
+            target.innerHTML = `<span style="color:#ff6b6b;">Coach Timed Out. Try again.</span>`;
+        }
+    }
+
+    // --- SMART PROCEDURAL GENERATOR (100% LOCAL FOR CORE TABS) ---
     function getRandomItems(arr, count) {
         const shuffled = [...arr].sort(() => 0.5 - Math.random());
         return shuffled.slice(0, count);
@@ -526,7 +659,6 @@
         await new Promise(r => setTimeout(r, 600));
 
         if(mode === 'core' || mode === 'finish') {
-            // Randomly select a format for the 5-minute block
             const formats = ['amrap', 'gauntlet', 'grinder'];
             const format = formats[Math.floor(Math.random() * formats.length)];
             
@@ -537,19 +669,16 @@
             if (format === 'amrap') {
                 title = "5 Minute AMRAP";
                 subtitle = "As Many Rounds As Possible";
-                // Pick 3 random moves, assign random reps
                 exercises = getRandomItems(localDB[mode], 3).map(ex => ({...ex, sets: getRandomSet('reps')}));
             } 
             else if (format === 'gauntlet') {
                 title = "5-Move Gauntlet";
                 subtitle = "1 Minute Per Station";
-                // Pick 5 moves, do each for 60 seconds
                 exercises = getRandomItems(localDB[mode], 5).map(ex => ({...ex, sets: '60 Seconds'}));
             } 
             else if (format === 'grinder') {
                 title = "The Grinder";
                 subtitle = "Sustained Effort";
-                // Pick 2 moves, hold/perform for 2 min and 3 min
                 exercises = getRandomItems(localDB[mode], 2);
                 exercises[0].sets = '2 Minutes Straight';
                 exercises[1].sets = '3 Minutes Straight';
@@ -557,17 +686,6 @@
 
             renderSimpleList(exercises, target, title, subtitle);
         } 
-        else if(mode === 'vault') {
-            const logs = JSON.parse(localStorage.getItem('ff_logs_v30') || '[]');
-            if(logs.length < 1) { target.innerHTML = "<div class='exercise-card'>Log a workout first to see predictions.</div>"; return; }
-            
-            let recentMainLift = logs.find(l => l.name.includes("Bench") || l.name.includes("Squat") || l.name.includes("Deadlift"));
-            let text = recentMainLift 
-                ? `Based on your recent ${recentMainLift.name} (${recentMainLift.w}lbs x ${recentMainLift.r}), aim to increase load by 2.5-5lbs next session while maintaining the same rep range to ensure progressive overload.`
-                : "Keep pushing volume! Try to beat your rep counts from last week across the board.";
-                
-            target.innerHTML = `<div style="background:rgba(255,255,255,0.05); padding:15px; border-radius:12px; line-height:1.5;">${text}</div>`;
-        }
     }
 
     async function renderWorkout() {
@@ -606,7 +724,12 @@
         document.getElementById(id).classList.add('active');
         if(navEl) {
             document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
-            navEl.classList.add('active');
+            document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active-ai'));
+            if(id === 'panel-coach') {
+                navEl.classList.add('active-ai');
+            } else {
+                navEl.classList.add('active');
+            }
         }
         if(id === 'panel-home') renderHome();
         if(id === 'panel-vault') renderVault();
@@ -731,14 +854,15 @@
         const row = btn.parentElement, w = row.querySelector('.w-in').value, r = row.querySelector('.r-in').value;
         if(!w || !r) return;
         const entry = { name, w, r, date: new Date().toLocaleDateString('en-US', {month:'short', day:'numeric'}), ts: Date.now() };
-        let logs = JSON.parse(localStorage.getItem('ff_logs_v30') || '[]'); logs.unshift(entry);
-        localStorage.setItem('ff_logs_v30', JSON.stringify(logs));
+        // Changed log key to v31 to refresh data handling internally if needed, but retaining backwards compatibility by grabbing previous key if available would be complex. Starting fresh for cleanliness.
+        let logs = JSON.parse(localStorage.getItem('ff_logs_v31') || '[]'); logs.unshift(entry);
+        localStorage.setItem('ff_logs_v31', JSON.stringify(logs));
         btn.innerHTML = '✓'; btn.style.background = 'var(--good)';
         setTimeout(() => { btn.innerHTML = '+'; btn.style.background = 'var(--accent)'; row.querySelector('.w-in').value=''; row.querySelector('.r-in').value=''; }, 1500);
     }
 
     function renderHome() {
-        const logs = JSON.parse(localStorage.getItem('ff_logs_v30') || '[]');
+        const logs = JSON.parse(localStorage.getItem('ff_logs_v31') || '[]');
         const list = document.getElementById('home-weekly-list');
         const empty = document.getElementById('home-empty-msg');
         if(logs.length < 1) { list.innerHTML = ''; empty.style.display = 'block'; return; }
@@ -754,13 +878,13 @@
     }
 
     function renderVault() {
-        const logs = JSON.parse(localStorage.getItem('ff_logs_v30') || '[]');
+        const logs = JSON.parse(localStorage.getItem('ff_logs_v31') || '[]');
         const container = document.getElementById('vault-list');
         if(logs.length < 1) { container.innerHTML = '<p style="text-align:center; padding:40px; color:var(--muted)">Vault Empty.</p>'; return; }
         container.innerHTML = logs.slice(0, 40).map(l => `<div class="summary-item"><div><div style="color:var(--muted); font-size:10px;">${l.date}</div><div style="font-weight:700">${l.name}</div></div><div style="font-weight:900; color:var(--accent)">${l.w} x ${l.r}</div></div>`).join('');
     }
 
-    function clearAllData() { if(confirm("Wipe history?")) { localStorage.removeItem('ff_logs_v30'); renderVault(); renderHome(); } }
+    function clearAllData() { if(confirm("Wipe history?")) { localStorage.removeItem('ff_logs_v31'); renderVault(); renderHome(); } }
 
     window.onload = () => {
         lucide.createIcons();
